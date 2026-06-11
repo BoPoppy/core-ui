@@ -104,3 +104,55 @@ export {
   EmptyState,
   type EmptyStateProps,
 } from "./components/empty-state/empty-state";
+
+// Components — Batch 5 (Navigation + Dialog)
+export { Link, linkVariants, type LinkProps } from "./components/link/link";
+export {
+  Breadcrumbs,
+  type BreadcrumbsProps,
+  type Crumb,
+} from "./components/breadcrumbs/breadcrumbs";
+export { Pagination, type PaginationProps } from "./components/pagination/pagination";
+export { Stepper, type StepperProps, type Step } from "./components/stepper/stepper";
+export {
+  BottomNav,
+  type BottomNavProps,
+  type BottomNavItem,
+} from "./components/bottom-nav/bottom-nav";
+export {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+  type TabsListProps,
+} from "./components/tabs/tabs";
+export {
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuLabel,
+  MenuGroup,
+  type MenuItemProps,
+} from "./components/menu/menu";
+export {
+  Dialog,
+  DialogTrigger,
+  DialogClose,
+  DialogContent,
+  DialogBody,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "./components/dialog/dialog";
+export {
+  Drawer,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerDescription,
+  drawerVariants,
+  type DrawerContentProps,
+} from "./components/drawer/drawer";
