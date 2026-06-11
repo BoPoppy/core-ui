@@ -47,3 +47,33 @@ export {
   ToggleButtonsItem,
 } from "./components/toggle-buttons/toggle-buttons";
 export { Rating, type RatingProps } from "./components/rating/rating";
+
+// Components — Batch 3 (Data display)
+export {
+  Avatar,
+  AvatarGroup,
+  avatarVariants,
+  type AvatarProps,
+} from "./components/avatar/avatar";
+export { Divider, type DividerProps } from "./components/divider/divider";
+export { Kbd, KbdCombo } from "./components/kbd/kbd";
+export { List, ListItem, type ListItemProps } from "./components/list/list";
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableEmpty,
+} from "./components/table/table";
+export { Tooltip, TooltipProvider, type TooltipProps } from "./components/tooltip/tooltip";
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverClose,
+  PopoverAnchor,
+  PopoverBody,
+  PopoverTitle,
+} from "./components/popover/popover";
