@@ -156,3 +156,25 @@ export {
   drawerVariants,
   type DrawerContentProps,
 } from "./components/drawer/drawer";
+
+// Components — Batch 6 (Surfaces + Advanced)
+export {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "./components/accordion/accordion";
+export { Paper, paperVariants, type PaperProps } from "./components/paper/paper";
+export {
+  AppBar,
+  AppBarTitle,
+  AppBarIcon,
+  AppBarSpacer,
+} from "./components/app-bar/app-bar";
+export { Carousel, type CarouselProps } from "./components/carousel/carousel";
+export {
+  CommandPalette,
+  useCommandPaletteShortcut,
+  type CommandPaletteProps,
+  type CommandItem,
+} from "./components/command-palette/command-palette";
