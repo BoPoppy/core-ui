@@ -1,0 +1,152 @@
+/* ============================================================
+   CORE UI — TOKEN CASCADE
+   Ported from the design handoff (styles.css). One set of markup
+   renders as 3 personalities x 2 themes by remapping CSS variables.
+
+   Cascade order (low -> high precedence):
+     1. Base color tokens        :root (light) / [data-theme="dark"]
+     2. Personality tokens       [data-personality="pebble|slate|pop"]
+     3. Computed tokens          radii x --r-scale, spacing x --dens
+     4. Motion tokens
+     5. Tweaks (inline on <html>) highest precedence — written by the
+        ThemeProvider for accent / radius / density / font.
+
+   NOTE: the design's `data-dir` (personality) is renamed to
+   `data-personality` here to avoid colliding with the real `dir`
+   (text-direction) attribute, exactly as the handoff README advises.
+   ============================================================ */
+
+/* ---------- 1. BASE COLOR TOKENS (light) ---------- */
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --text: #18181b;
+  --text-muted: #71717a;
+  --text-faint: #a1a1aa;
+  --border: #e4e4e7;
+  --border-strong: #d4d4d8;
+
+  /* monochrome accent by default (ink) */
+  --accent: #18181b;
+  --accent-hover: #000000;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(24, 24, 27, 0.07);
+
+  --success: #16a34a;
+  --success-soft: rgba(22, 163, 74, 0.12);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.1);
+  --warn: #d97706;
+
+  /* knobs the Tweaks panel / ThemeProvider drive */
+  --r-scale: 1;
+  --dens: 1;
+}
+
+[data-theme="dark"] {
+  --bg: #161619;
+  --surface: #1e1e22;
+  --surface-2: #26262b;
+  --text: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --text-faint: #71717a;
+  --border: #2c2c33;
+  --border-strong: #3a3a42;
+
+  --accent: #f4f4f5;
+  --accent-hover: #ffffff;
+  --accent-text: #18181b;
+  --accent-soft: rgba(244, 244, 245, 0.1);
+
+  --success: #4ade80;
+  --success-soft: rgba(74, 222, 128, 0.14);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+  --warn: #fbbf24;
+}
+
+/* ---------- 2. PERSONALITY TOKENS ----------
+   base radii are numeric so the radius tweak (--r-scale) can scale them.
+   --sh-1/2/3 are renamed from the design's --shadow-1/2/3 to avoid
+   colliding with Tailwind's own `--shadow-*` theme namespace. */
+[data-personality="pebble"] {
+  --r-sm-base: 10px;
+  --r-md-base: 16px;
+  --r-lg-base: 24px;
+  --btn-radius: 999px;
+  --line-w: 1px;
+  --line-color: var(--border);
+  --card-line-color: var(--border);
+  --sh-1: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --sh-2: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --sh-3: 0 22px 50px rgba(0, 0, 0, 0.18);
+  --press: translateY(1px);
+  --font-ui: "Nunito", system-ui, sans-serif;
+  --font-weight-strong: 800;
+}
+
+[data-personality="slate"] {
+  --r-sm-base: 5px;
+  --r-md-base: 7px;
+  --r-lg-base: 10px;
+  --btn-radius: 7px;
+  --line-w: 1px;
+  --line-color: var(--border-strong);
+  --card-line-color: var(--border);
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --sh-2: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --sh-3: 0 12px 32px rgba(0, 0, 0, 0.14);
+  --press: translateY(0.5px);
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-weight-strong: 600;
+}
+
+[data-personality="pop"] {
+  --r-sm-base: 8px;
+  --r-md-base: 12px;
+  --r-lg-base: 16px;
+  --btn-radius: 10px;
+  --line-w: 2px;
+  --line-color: var(--text);
+  --card-line-color: var(--text);
+  --sh-1: 2px 2px 0 var(--text);
+  --sh-2: 4px 4px 0 var(--text);
+  --sh-3: 7px 7px 0 var(--text);
+  --press: translate(2px, 2px);
+  --font-ui: "Space Grotesk", system-ui, sans-serif;
+  --font-weight-strong: 700;
+}
+
+/* Sensible default personality when no attribute is set (pebble). */
+:root:not([data-personality]) {
+  --r-sm-base: 10px;
+  --r-md-base: 16px;
+  --r-lg-base: 24px;
+  --btn-radius: 999px;
+  --line-w: 1px;
+  --line-color: var(--border);
+  --card-line-color: var(--border);
+  --sh-1: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --sh-2: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --sh-3: 0 22px 50px rgba(0, 0, 0, 0.18);
+  --press: translateY(1px);
+  --font-ui: "Nunito", system-ui, sans-serif;
+  --font-weight-strong: 800;
+}
+
+/* ---------- 3. COMPUTED TOKENS ---------- */
+:root {
+  --r-sm: calc(var(--r-sm-base, 8px) * var(--r-scale));
+  --r-md: calc(var(--r-md-base, 12px) * var(--r-scale));
+  --r-lg: calc(var(--r-lg-base, 16px) * var(--r-scale));
+}
+
+/* ---------- 4. MOTION TOKENS ---------- */
+:root {
+  --dur-fast: 120ms;
+  --dur: 180ms;
+  --dur-slow: 280ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}

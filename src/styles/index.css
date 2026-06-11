@@ -1,0 +1,196 @@
+/* ============================================================
+   @fv/ui — distributable stylesheet
+   Import once in your app:  import "@fv/ui/styles.css";
+
+   This compiles Tailwind v4 + the token cascade into a single file
+   containing exactly the utilities the components use, so consumers
+   do NOT need Tailwind installed.
+   ============================================================ */
+/* Fonts used by the three personalities (must be the first statement). */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Scan component sources so their utility classes survive tree-shaking. */
+@source "../components";
+
+/* ------------------------------------------------------------
+   THEME — map the runtime token cascade into Tailwind's design
+   tokens. `inline` makes utilities emit `var(--token)` rather than
+   the resolved value, so switching personality/theme at runtime
+   re-skins every utility automatically.
+   ------------------------------------------------------------ */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warn: var(--warn);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-btn: var(--btn-radius);
+
+  --shadow-1: var(--sh-1);
+  --shadow-2: var(--sh-2);
+  --shadow-3: var(--sh-3);
+
+  --ease-smooth: var(--ease);
+  --ease-bounce: var(--ease-bounce);
+}
+
+/* Density-aware spacing: scaling Tailwind's spacing base by --dens means
+   every padding, margin, gap, height and width utility responds to the
+   density tweak. */
+@theme {
+  --spacing: calc(0.25rem * var(--dens));
+}
+
+/* ------------------------------------------------------------
+   CUSTOM VARIANTS — target the runtime <html> attributes so CVA
+   recipes can express personality/theme-conditional styling inline,
+   e.g. `pop:border-fg`  `pebble:rounded-full`  `dark:bg-surface`.
+   ------------------------------------------------------------ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant pebble (&:where([data-personality="pebble"], [data-personality="pebble"] *));
+@custom-variant slate (&:where([data-personality="slate"], [data-personality="slate"] *));
+@custom-variant pop (&:where([data-personality="pop"], [data-personality="pop"] *));
+
+/* ------------------------------------------------------------
+   BASE LAYER
+   ------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Visible focus rings on keyboard navigation only. */
+  :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  /* Honor reduced-motion globally. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  @keyframes fv-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes fv-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+  }
+  @keyframes fv-indeterminate {
+    0% {
+      margin-left: -40%;
+    }
+    100% {
+      margin-left: 100%;
+    }
+  }
+  @keyframes fv-shimmer {
+    0% {
+      background-position: 100% 0;
+    }
+    100% {
+      background-position: -100% 0;
+    }
+  }
+  @keyframes fv-toast-in {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+  }
+  @keyframes fv-toast-out {
+    to {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+  }
+  @keyframes fv-overlay-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes fv-dialog-in {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) translateY(12px) scale(0.97);
+    }
+  }
+  @keyframes fv-slide-in-l {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes fv-slide-in-r {
+    from {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes fv-slide-in-t {
+    from {
+      transform: translateY(-100%);
+    }
+  }
+  @keyframes fv-slide-in-b {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes fv-acc-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes fv-acc-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}

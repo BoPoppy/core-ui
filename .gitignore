@@ -1,0 +1,14 @@
+node_modules
+dist
+storybook-static
+coverage
+*.log
+.DS_Store
+.turbo
+.env
+.env.*
+!.env.example
+
+# Local dev-environment / tooling artifacts (not part of the library)
+.claude
+.agents
