@@ -77,3 +77,30 @@ export {
   PopoverBody,
   PopoverTitle,
 } from "./components/popover/popover";
+
+// Components — Batch 4 (Feedback)
+export { Alert, alertVariants, type AlertProps } from "./components/alert/alert";
+export { Banner, bannerVariants, type BannerProps } from "./components/banner/banner";
+export {
+  Progress,
+  CircularProgress,
+  Spinner,
+  type ProgressProps,
+  type CircularProgressProps,
+} from "./components/progress/progress";
+export {
+  Skeleton,
+  skeletonVariants,
+  type SkeletonProps,
+} from "./components/skeleton/skeleton";
+export {
+  ToastProvider,
+  useToast,
+  type ToastProviderProps,
+  type ToastOptions,
+  type ToastVariant,
+} from "./components/toast/toast";
+export {
+  EmptyState,
+  type EmptyStateProps,
+} from "./components/empty-state/empty-state";
