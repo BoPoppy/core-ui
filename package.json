@@ -83,7 +83,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "chromatic": "^11.20.0",
     "jest-axe": "^9.0.0",
-    "jsdom": "^25.0.1",
+    "jsdom": "^29.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^10.4.4",
