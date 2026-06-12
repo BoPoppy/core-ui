@@ -194,3 +194,42 @@ export {
   type CalendarProps,
 } from "./components/date-picker/date-picker";
 export { ColorPicker, type ColorPickerProps } from "./components/color-picker/color-picker";
+
+// Components — Remaining set
+export {
+  Autocomplete,
+  type AutocompleteProps,
+} from "./components/autocomplete/autocomplete";
+export {
+  Combobox,
+  type ComboboxProps,
+  type ComboboxOption,
+} from "./components/combobox/combobox";
+export { TreeView, type TreeViewProps, type TreeNode } from "./components/tree-view/tree-view";
+export { Timeline, type TimelineProps, type TimelineItem } from "./components/timeline/timeline";
+export {
+  Menubar,
+  MenubarMenu,
+  MenubarTrigger,
+  MenubarContent,
+  MenubarItem,
+  MenubarSeparator,
+  type MenubarItemProps,
+} from "./components/menubar/menubar";
+export {
+  SpeedDial,
+  type SpeedDialProps,
+  type SpeedDialAction,
+} from "./components/speed-dial/speed-dial";
+export {
+  TimePicker,
+  type TimePickerProps,
+  type TimeValue,
+} from "./components/time-picker/time-picker";
+export {
+  DateRangePicker,
+  RangeCalendar,
+  type DateRangePickerProps,
+  type RangeCalendarProps,
+  type DateRange,
+} from "./components/date-range/date-range";
