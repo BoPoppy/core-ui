@@ -228,7 +228,7 @@ export function DataDisplay() {
             </Button>
           </Row>
         </Grp>
-        <Table style={{ maxWidth: 560 }}>
+        <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Member</TableHead>

@@ -223,7 +223,7 @@ export function Inputs() {
           options={["Apple", "Banana", "Blueberry", "Cherry", "Grape", "Mango", "Orange", "Peach"]}
           aria-label="Fruit"
           placeholder="Search fruit…"
-          className="w-72"
+          className="w-full max-w-72"
         />
       </Section>
 
@@ -234,12 +234,17 @@ export function Inputs() {
           onValueChange={setPicked}
           aria-label="Frameworks"
           placeholder="Pick frameworks…"
-          className="w-72"
+          className="w-full max-w-72"
         />
       </Section>
 
       <Section num="15" title="Tag Input" note="free-form tokens">
-        <TagInput value={tags} onValueChange={setTags} placeholder="Add skills…" className="w-80" />
+        <TagInput
+          value={tags}
+          onValueChange={setTags}
+          placeholder="Add skills…"
+          className="w-full max-w-80"
+        />
       </Section>
 
       <Section num="16" title="OTP Input" note="verification code · auto-advance">

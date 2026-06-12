@@ -57,12 +57,13 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
       return (
         <div
           ref={ref}
-          className={cn("inline-flex gap-[3px]", className)}
+          className={cn("flex w-full gap-[3px]", className)}
+          style={{ maxWidth: `${max * 26 + (max - 1) * 3}px` }}
           role="img"
           aria-label={`${ariaLabel}: ${current} of ${max}`}
         >
           {Array.from({ length: max }, (_, i) => (
-            <span key={i} className="size-[26px]">
+            <span key={i} className="w-full max-w-[26px] aspect-square flex-1 min-w-0">
               <StarIcon filled={i < current} />
             </span>
           ))}
@@ -73,7 +74,8 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
     return (
       <div
         ref={ref}
-        className={cn("inline-flex gap-[3px]", className)}
+        className={cn("flex w-full gap-[3px]", className)}
+        style={{ maxWidth: `${max * 26 + (max - 1) * 3}px` }}
         role="slider"
         aria-label={ariaLabel}
         aria-valuemin={0}
@@ -99,7 +101,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(
               type="button"
               tabIndex={-1}
               aria-label={`${starValue} star${starValue > 1 ? "s" : ""}`}
-              className="size-[26px] cursor-pointer transition-transform duration-100 hover:scale-[1.18]"
+              className="w-full max-w-[26px] aspect-square min-w-0 flex-1 cursor-pointer transition-transform duration-100 hover:scale-[1.18]"
               onMouseEnter={() => setHover(starValue)}
               onClick={() => set(starValue)}
             >

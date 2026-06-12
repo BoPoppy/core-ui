@@ -9,7 +9,7 @@ export const Accordion = forwardRef<
   <RadixAccordion.Root
     ref={ref}
     className={cn(
-      "max-w-[560px] overflow-hidden rounded-md bg-surface shadow-1",
+      "overflow-hidden rounded-md bg-surface shadow-1",
       "border-solid [border-width:var(--line-w)] [border-color:var(--card-line-color)] pop:border-fg",
       className,
     )}
