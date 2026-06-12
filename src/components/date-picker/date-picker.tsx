@@ -37,7 +37,11 @@ const NavBtn = ({
   label,
   onClick,
   children,
-}: { label: string; onClick: () => void; children: React.ReactNode }) => (
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => (
   <button
     type="button"
     aria-label={label}
