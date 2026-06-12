@@ -9,8 +9,12 @@
     "url": "git+https://github.com/BoPoppy/core-ui.git"
   },
   "type": "module",
-  "sideEffects": ["**/*.css"],
-  "files": ["dist"],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -62,7 +66,7 @@
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.4.16",
     "@changesets/cli": "^2.27.11",
     "@storybook/addon-a11y": "^10.4.4",
     "@storybook/addon-docs": "^10.4.4",
@@ -87,7 +91,7 @@
     "tsup": "^8.3.5",
     "typescript": "^6.0.3",
     "vite": "^7.3.5",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.8"
   },
   "engines": {
     "node": ">=18"
@@ -96,5 +100,12 @@
     "access": "public",
     "registry": "https://npm.pkg.github.com"
   },
-  "keywords": ["react", "ui", "component-library", "design-system", "tailwindcss", "tokens"]
+  "keywords": [
+    "react",
+    "ui",
+    "component-library",
+    "design-system",
+    "tailwindcss",
+    "tokens"
+  ]
 }

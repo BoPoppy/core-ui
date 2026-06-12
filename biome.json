@@ -1,7 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "files": { "ignore": ["dist", "storybook-static", "coverage", ".claude"] },
+  "files": {
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/storybook-static",
+      "!**/coverage",
+      "!**/.claude",
+      "!src/styles/index.css"
+    ]
+  },
   "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
   "linter": {
     "enabled": true,
@@ -11,7 +20,10 @@
         "noSvgWithoutTitle": "off",
         "useFocusableInteractive": "off",
         "useSemanticElements": "off",
-        "useKeyWithClickEvents": "off"
+        "useKeyWithClickEvents": "off",
+        "noNoninteractiveElementToInteractiveRole": "off",
+        "noStaticElementInteractions": "off",
+        "useAriaPropsSupportedByRole": "off"
       },
       "suspicious": { "noArrayIndexKey": "off" }
     }
