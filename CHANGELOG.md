@@ -1,5 +1,11 @@
 # @bopoppy/core-ui
 
+## 0.2.0
+
+### Minor Changes
+
+- 0805bfa: fix responsiveness for playground preview
+
 ## 0.1.0
 
 ### Minor Changes
