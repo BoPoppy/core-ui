@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { List, ListItem } from "./list";
 
 const Dot = () => <span className="size-2.5 rounded-full bg-accent" />;

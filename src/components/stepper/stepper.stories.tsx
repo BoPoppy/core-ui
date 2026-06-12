@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Stepper } from "./stepper";
 
 const meta = { title: "Navigation/Stepper", component: Stepper, tags: ["autodocs"] } satisfies Meta<

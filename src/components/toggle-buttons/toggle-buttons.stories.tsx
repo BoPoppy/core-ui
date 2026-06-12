@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ToggleButtons, ToggleButtonsItem } from "./toggle-buttons";
 
 const meta = {
