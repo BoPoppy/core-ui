@@ -43,7 +43,10 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Run the lockfile-pinned Chromatic CLI directly instead of the
+      # `chromaui/action@latest` mutable-tag action — no third-party action in
+      # the supply chain; the version is controlled by pnpm-lock.yaml.
       - name: Publish to Chromatic
-        uses: chromaui/action@latest
-        with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: pnpm chromatic
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
