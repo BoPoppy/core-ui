@@ -1,5 +1,5 @@
 ---
-"@fv/ui": minor
+"@bopoppy/core-ui": minor
 ---
 
 Batch 3 — Data display.

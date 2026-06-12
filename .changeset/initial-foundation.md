@@ -1,5 +1,5 @@
 ---
-"@fv/ui": minor
+"@bopoppy/core-ui": minor
 ---
 
 Initial release — token cascade foundation + Batch 1 components.

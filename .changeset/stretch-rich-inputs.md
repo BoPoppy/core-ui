@@ -1,5 +1,5 @@
 ---
-"@fv/ui": minor
+"@bopoppy/core-ui": minor
 ---
 
 Stretch — rich inputs + advanced pickers.

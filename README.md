@@ -1,6 +1,6 @@
 <div align="center">
 
-# @fv/ui
+# @bopoppy/core-ui
 
 **A token-driven React component library with three switchable personalities.**
 
@@ -8,9 +8,8 @@ One set of components. Three looks — **Pebble** (soft & rounded), **Slate** (c
 **Pop** (chunky & bold) — each in **light + dark**, with runtime tweaks for accent, radius,
 density, and font. Accessible by default, responsive to 375px, LTR/RTL.
 
-[![npm](https://img.shields.io/npm/v/@fv/ui.svg)](https://www.npmjs.com/package/@fv/ui)
-[![CI](https://github.com/your-handle/core-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/your-handle/core-ui/actions/workflows/ci.yml)
-[![license](https://img.shields.io/npm/l/@fv/ui.svg)](./LICENSE)
+[![CI](https://github.com/BoPoppy/core-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/BoPoppy/core-ui/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 </div>
 
@@ -18,7 +17,7 @@ density, and font. Accessible by default, responsive to 375px, LTR/RTL.
 
 ## Why this exists
 
-Most component libraries hard-code one visual identity. **@fv/ui** is built on a **CSS-variable
+Most component libraries hard-code one visual identity. **@bopoppy/core-ui** is built on a **CSS-variable
 token cascade**: the same markup re-skins into three distinct "personalities" × two themes by
 flipping a single attribute on `<html>`. It's a design system you can re-brand per project without
 forking components.
@@ -28,15 +27,27 @@ forking components.
 
 ## Install
 
+This package is published to **GitHub Packages** under the `@bopoppy` scope. Tell your package
+manager where to find the scope by adding an `.npmrc` to the consuming project:
+
+```ini
+# .npmrc
+@bopoppy:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+`GITHUB_TOKEN` must be a GitHub Personal Access Token with the `read:packages` scope (GitHub
+Packages requires auth even for public packages). Then:
+
 ```bash
-npm install @fv/ui
+npm install @bopoppy/core-ui
 ```
 
 ```tsx
 // Once, at your app root:
-import "@fv/ui/styles.css";
+import "@bopoppy/core-ui/styles.css";
 
-import { ThemeProvider, Button } from "@fv/ui";
+import { ThemeProvider, Button } from "@bopoppy/core-ui";
 
 export function App() {
   return (
@@ -75,7 +86,7 @@ personality-conditional styling with Tailwind v4 custom variants:
 ## Theming at runtime
 
 ```tsx
-import { useTheme } from "@fv/ui";
+import { useTheme } from "@bopoppy/core-ui";
 
 function Toolbar() {
   const { theme, toggleTheme, setPersonality, setDensity, setAccent } = useTheme();
@@ -107,15 +118,20 @@ All state persists to `localStorage` and is restored on reload.
 
 ```bash
 pnpm install
-pnpm storybook      # component workbench — switch personality/theme from the toolbar
-pnpm test           # Vitest + Testing Library + jest-axe
-pnpm build          # tsup (ESM + types) + Tailwind (styles.css)
+pnpm storybook         # component workbench — switch personality/theme from the toolbar
+pnpm playground        # the catalog showcase (masthead + personality/category tabs + Tweaks)
+pnpm test              # Vitest + Testing Library + jest-axe
+pnpm build             # tsup (ESM + types) + Tailwind (styles.css)
+pnpm build:playground  # static catalog → playground/dist (deployed to GitHub Pages)
 ```
+
+The **catalog** in [`playground/`](./playground) is a living reference that reuses the real
+components; it auto-deploys to GitHub Pages on push to `main` (see `.github/workflows/pages.yml`).
 
 ## Tech
 
 TypeScript · React 19 · Tailwind CSS v4 · [CVA](https://cva.style) · [Radix UI](https://radix-ui.com)
-· tsup · Storybook 8 · Vitest + jest-axe · Changesets · Biome
+· tsup · Storybook 10 · Vitest + jest-axe · Changesets · Biome
 
 ## Roadmap
 

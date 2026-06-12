@@ -1,12 +1,20 @@
 {
-  "name": "@fv/ui",
+  "name": "@bopoppy/core-ui",
   "version": "0.0.0",
   "description": "Core UI — a token-driven React component library with three switchable personalities (Pebble / Slate / Pop), light + dark themes, and runtime tweaks.",
   "license": "MIT",
   "author": "Tri Vo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoPoppy/core-ui.git"
+  },
   "type": "module",
-  "sideEffects": ["**/*.css"],
-  "files": ["dist"],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -28,6 +36,8 @@
     "format": "biome format --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "playground": "vite --config playground/vite.config.ts",
+    "build:playground": "tsc -p playground/tsconfig.json && vite build --config playground/vite.config.ts",
     "chromatic": "chromatic --exit-zero-on-changes",
     "release": "pnpm build && changeset publish",
     "version-packages": "changeset version"
@@ -67,6 +77,7 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest-axe": "^3.5.9",
+    "@types/node": "^25.9.3",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
@@ -79,13 +90,22 @@
     "tailwindcss": "^4.0.0",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
+    "vite": "^7.3.5",
     "vitest": "^3.0.0"
   },
   "engines": {
     "node": ">=18"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
-  "keywords": ["react", "ui", "component-library", "design-system", "tailwindcss", "tokens"]
+  "keywords": [
+    "react",
+    "ui",
+    "component-library",
+    "design-system",
+    "tailwindcss",
+    "tokens"
+  ]
 }

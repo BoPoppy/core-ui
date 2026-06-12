@@ -1,5 +1,5 @@
 ---
-"@fv/ui": minor
+"@bopoppy/core-ui": minor
 ---
 
 Batch 2 — the rest of the Inputs category.
