@@ -7,6 +7,10 @@ const PERSONALITIES = ["pebble", "slate", "pop"] as const;
 /** Global toolbar controls to switch personality + theme live. */
 const withTokens: Decorator = (Story, context) => {
   const { personality, theme } = context.globals;
+  // In the standalone canvas we stretch to fill the viewport so the themed
+  // background reads as a full page; in autodocs each story is an inline block,
+  // so we let it size to its content instead of forcing 100vh of empty space.
+  const inDocs = context.viewMode === "docs";
   useEffect(() => {
     const el = document.documentElement;
     el.setAttribute("data-personality", personality);
@@ -14,7 +18,7 @@ const withTokens: Decorator = (Story, context) => {
     el.style.background = "var(--bg)";
   }, [personality, theme]);
   return (
-    <div style={{ padding: 32, minHeight: "100vh", background: "var(--bg)" }}>
+    <div style={{ padding: inDocs ? 24 : 32, minHeight: inDocs ? undefined : "100vh", background: "var(--bg)" }}>
       <Story />
     </div>
   );
