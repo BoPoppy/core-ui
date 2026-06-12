@@ -129,7 +129,12 @@ export function Surfaces() {
       </Section>
 
       <Section num="02" title="Accordion" note="expand · collapse · single-open">
-        <Accordion type="single" collapsible defaultValue="a" style={{ width: 480 }}>
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue="a"
+          style={{ width: "100%", maxWidth: 480 }}
+        >
           <AccordionItem value="a">
             <AccordionTrigger>What is Core UI?</AccordionTrigger>
             <AccordionContent>
@@ -156,7 +161,7 @@ export function Surfaces() {
       </Section>
 
       <Section num="03" title="App Bar" note="accent surface · actions">
-        <AppBar style={{ width: 560 }}>
+        <AppBar style={{ width: "100%", maxWidth: 560 }}>
           <AppBarIcon aria-label="Open menu">
             <MenuIcon />
           </AppBarIcon>
@@ -195,7 +200,7 @@ export function Surfaces() {
       </Section>
 
       <Section num="05" title="Carousel" note="slides · arrows · dots · live">
-        <Carousel style={{ width: 480 }}>
+        <Carousel style={{ width: "100%", maxWidth: 480 }}>
           <Slide label="Slide one" from="#6366f1" to="#8b5cf6" />
           <Slide label="Slide two" from="#0ea5e9" to="#22d3ee" />
           <Slide label="Slide three" from="#f59e0b" to="#ef4444" />

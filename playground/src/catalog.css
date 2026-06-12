@@ -601,3 +601,87 @@ body {
 .skip-link:focus {
   left: 16px;
 }
+
+/* ============================================================
+   Responsive — the catalog chrome was authored desktop-first.
+   These rules keep it usable on tablet + phone widths: tables
+   scroll inside their own card, the floating tweaks panel stays
+   inside the viewport, and the tab strip scrolls instead of
+   wrapping into a cramped stack.
+   ============================================================ */
+
+/* Guard against page-level sideways scroll from any stray
+   intrinsic-wide child (clip, unlike hidden, makes no scroll box
+   and so never traps the in-card table/tab scrollers below). */
+html,
+body {
+  overflow-x: clip;
+}
+
+/* Data tables ship with an `overflow-hidden` wrapper, so a table
+   wider than its card is clipped (cut off) rather than scrollable.
+   Inside the catalog canvas we let that wrapper scroll instead. */
+.canvas :where(div):has(> table) {
+  overflow-x: auto;
+}
+
+@media (max-width: 860px) {
+  .sheet {
+    padding: 32px 20px 96px;
+  }
+  .sec {
+    margin-top: 36px;
+  }
+  /* Keep the floating panel within the viewport on small screens. */
+  .tweaks-panel {
+    width: min(290px, calc(100vw - 32px));
+    max-height: calc(100vh - 44px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .sheet {
+    padding: 24px 14px 88px;
+  }
+  .canvas {
+    border-radius: 16px;
+  }
+  /* Tab strip scrolls horizontally instead of wrapping/cutting off. */
+  .cattabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cattabs::-webkit-scrollbar {
+    display: none;
+  }
+  .cattab {
+    flex: none;
+    padding: 9px 12px 11px;
+    font-size: 13px;
+  }
+  .masthead {
+    gap: 14px;
+  }
+  /* Type-scale specimens wrap rather than force the page wider. */
+  .scale-row {
+    flex-wrap: wrap;
+    gap: 6px 16px;
+  }
+  .scale-sample {
+    white-space: normal;
+  }
+  /* Dock the tweaks panel as a bottom sheet so it stops covering
+     the canvas and never exceeds the viewport width. */
+  .tweaks-fab {
+    right: 16px;
+    bottom: 16px;
+  }
+  .tweaks-panel {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    width: auto;
+  }
+}
