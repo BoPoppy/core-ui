@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   BottomNav,
   Breadcrumbs,
@@ -30,6 +29,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@bopoppy/core-ui";
+import { useState } from "react";
 import { Grp, Row, Section } from "../chrome/Section";
 
 /** Inline 24×24 stroke icon helper, matching the component stories. */
