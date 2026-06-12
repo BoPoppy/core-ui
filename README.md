@@ -147,6 +147,41 @@ TypeScript · React 19 · Tailwind CSS v4 · [CVA](https://cva.style) · [Radix 
 
 **The component set is complete.** Optional extras only: a defined Icon Set and a syntax-highlighted Code Block.
 
+## Repository setup
+
+Three GitHub Actions run on push to `main`:
+
+- **CI** (`ci.yml`) — lint, typecheck, test, build (+ Chromatic on PRs).
+- **Release** (`release.yml`) — Changesets opens a "Version Packages" PR; merging it publishes to GitHub Packages.
+- **Pages** (`pages.yml`) — builds the catalog and deploys it. Requires **Settings → Pages → Source: GitHub Actions** (one-time).
+
+Dependabot (`.github/dependabot.yml`) opens weekly update PRs for npm deps and Actions.
+
+### Protect `main`
+
+Because a push to `main` can publish a package and deploy the site, protect the branch so changes land via reviewed PRs that pass CI.
+
+**UI:** Settings → Branches → **Add branch ruleset** (or *Add rule*) targeting `main`, then enable:
+- *Require a pull request before merging* (≥ 1 approval)
+- *Require status checks to pass* → select the **verify** check from CI
+- *Require branches to be up to date before merging*
+- *Block force pushes*
+
+**CLI** (requires the `gh` CLI; the protection endpoint needs all top-level keys present, so pass a JSON body):
+
+```bash
+gh api -X PUT repos/BoPoppy/core-ui/branches/main/protection --input - <<'JSON'
+{
+  "required_status_checks": { "strict": true, "contexts": ["verify"] },
+  "enforce_admins": true,
+  "required_pull_request_reviews": { "required_approving_review_count": 1 },
+  "restrictions": null
+}
+JSON
+```
+
+To remove protection later: `gh api -X DELETE repos/BoPoppy/core-ui/branches/main/protection`.
+
 ## License
 
 [MIT](./LICENSE) © Tri Vo
