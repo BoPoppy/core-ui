@@ -1,0 +1,84 @@
+# @bopoppy/core-ui
+
+## 0.1.0
+
+### Minor Changes
+
+- 56d476b: Batch 2 — the rest of the Inputs category.
+
+  - **Checkbox**, **Radio** / **RadioGroup**, **Switch** — Radix-backed, token-styled, label-wired.
+  - **Select** — styled native select (keeps native a11y + mobile pickers), with label/hint/error.
+  - **Slider** — Radix-backed, single value or range.
+  - **FAB** — floating action button (sizes + extended pill).
+  - **ButtonGroup** / **ToggleButtons** — segmented controls (single or multiple) on Radix ToggleGroup.
+  - **Rating** — keyboard-accessible star rating, interactive or read-only.
+
+- 5490506: Batch 3 — Data display.
+
+  - **Avatar** (+ **AvatarGroup**) — image with initials/icon fallback, status dot, 5 sizes.
+  - **Divider** — solid/dashed, horizontal/vertical, optional centered label.
+  - **List** / **ListItem** — bordered list with icon/title/subtitle/meta slots.
+  - **Table** (+ **TableEmpty**) — composable, token-styled, with an empty/error state row.
+  - **Tooltip** — Radix-backed ink bubble with arrow, 4 sides.
+  - **Popover** — Radix-backed surface with arrow, focus management, composable parts.
+  - **Kbd** / **KbdCombo** — keyboard key caps.
+
+- be6086c: Batch 4 — Feedback.
+
+  - **Alert** — inline message, 4 variants (info/success/warn/danger), default glyphs, dismissible.
+  - **Banner** — page-level message bar (solid/subtle) with description, actions, dismiss.
+  - **Progress** — linear (determinate + indeterminate), **CircularProgress** ring, **Spinner**.
+  - **Skeleton** — shimmering placeholder (block/text/circle).
+  - **Toast** — imperative `useToast().toast(...)` API on a `ToastProvider`, built on Radix Toast
+    (swipe-to-dismiss, timers, screen-reader announcements).
+  - **EmptyState** — centered placeholder with icon, title, description, and action.
+
+- 62cbb33: Batch 5 — Navigation + Dialog.
+
+  - **Link** — animated-underline / underline / muted variants.
+  - **Breadcrumbs** — items array, custom separator, current-page semantics.
+  - **Pagination** — numeric pages with prev/next and ellipsis truncation.
+  - **Stepper** — horizontal progress across labelled steps (done / active / upcoming).
+  - **BottomNav** — mobile-style bottom navigation bar.
+  - **Tabs** — Radix-backed, underline + pill variants.
+  - **Menu** — Radix DropdownMenu (items, labels, separators, shortcuts, danger).
+  - **Dialog** — Radix-backed modal with overlay, focus trap, composable parts.
+  - **Drawer** — Radix Dialog sliding from any side (left/right/top/bottom).
+
+- 02faeaa: Batch 6 — Surfaces + Advanced.
+
+  - **Accordion** — Radix-backed, animated expand/collapse with rotating chevron.
+  - **Paper** — plain elevated surface (4 elevation levels).
+  - **AppBar** — accent-colored top bar with composable title / icon / spacer parts.
+  - **Carousel** — slide track with dots and arrows, controlled or uncontrolled.
+  - **CommandPalette** — ⌘K-style searchable command menu on Radix Dialog: live filtering,
+    grouped results, full keyboard nav (↑/↓/Enter/Esc), plus a `useCommandPaletteShortcut` hook.
+
+- 8a9d61d: Initial release — token cascade foundation + Batch 1 components.
+
+  - **ThemeProvider** driving personality (Pebble / Slate / Pop), light/dark theme, density, RTL, and accent/radius tweaks, with `localStorage` persistence.
+  - Tailwind v4 token theme + `pebble:` / `slate:` / `pop:` / `dark:` custom variants.
+  - Components: **Button** (4 variants × 3 sizes, loading, `asChild`), **Badge**, **Card** (+ sub-parts), **TextField** (label/hint/error/success, fully wired a11y).
+  - Pre-compiled `@fv/ui/styles.css` so consumers don't need Tailwind installed.
+
+- 3819c6b: Remaining set — completes the component library.
+
+  - **Autocomplete** — single-select filtering combobox (type to filter, ↑/↓/Enter, outside-click close).
+  - **Combobox** — multi-select with chips and checkable options.
+  - **TreeView** — recursive expand/collapse hierarchy with keyboard support.
+  - **Timeline** — vertical activity feed with status nodes.
+  - **Menubar** — Radix Menubar (File/Edit/View-style app menus).
+  - **SpeedDial** — a FAB that fans out actions.
+  - **TimePicker** — segmented 12-hour entry with AM/PM toggle and arrow-key steppers.
+  - **DateRangePicker** (+ **RangeCalendar**) — start→end range selection in a popover.
+
+  Adds an internal `useClickOutside` hook for the custom dropdowns.
+
+- 9e7ac4e: Stretch — rich inputs + advanced pickers.
+
+  - **NumberField** — stepper buttons, clamping, step.
+  - **OTPInput** — one-time-code field: auto-advance, Backspace step-back, paste-to-fill.
+  - **TagInput** — chip input (Enter/comma to add, Backspace to remove last, dedupe).
+  - **FileDropzone** — drag-and-drop or click to browse, file list with remove + fill animation.
+  - **DatePicker** (+ **Calendar**) — month grid with selection/today marker in a popover.
+  - **ColorPicker** — three synced input methods: swatches, draggable hue track, editable hex.
