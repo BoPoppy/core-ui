@@ -56,7 +56,8 @@ export const OTPInput = forwardRef<HTMLDivElement, OTPInputProps>(
         ref={ref}
         role="group"
         aria-label={ariaLabel}
-        className={cn("inline-flex gap-2", className)}
+        className={cn("flex w-full gap-2", className)}
+        style={{ maxWidth: `${length * 46 + (length - 1) * 8}px` }}
       >
         {chars.map((char, i) => (
           <input
@@ -98,7 +99,7 @@ export const OTPInput = forwardRef<HTMLDivElement, OTPInputProps>(
               }
             }}
             className={cn(
-              "h-[54px] w-[46px] rounded-sm bg-surface text-center text-[22px] font-bold text-fg outline-none",
+              "h-[54px] w-full max-w-[46px] min-w-0 flex-1 rounded-sm bg-surface text-center text-[22px] font-bold text-fg outline-none",
               "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
               "transition-[border-color,box-shadow,background-color]",
               "focus:border-accent focus:shadow-[0_0_0_3px_var(--accent-soft)]",

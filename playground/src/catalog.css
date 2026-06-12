@@ -587,7 +587,7 @@ body {
 
 .skip-link {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
   top: 8px;
   z-index: 200;
   background: var(--accent);
@@ -599,7 +599,7 @@ body {
   text-decoration: none;
 }
 .skip-link:focus {
-  left: 16px;
+  inset-inline-start: 16px;
 }
 
 /* ============================================================
@@ -647,6 +647,16 @@ body {
   .canvas {
     border-radius: 16px;
   }
+  .sec-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    align-items: baseline;
+  }
+  .sec-note {
+    grid-column: 1 / -1;
+    margin-left: 0;
+  }
   /* Tab strip scrolls horizontally instead of wrapping/cutting off. */
   .cattabs {
     flex-wrap: nowrap;
@@ -665,9 +675,19 @@ body {
     gap: 14px;
   }
   /* Type-scale specimens wrap rather than force the page wider. */
+  .scale-list {
+    gap: 24px;
+  }
   .scale-row {
-    flex-wrap: wrap;
-    gap: 6px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .scale-meta {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+    width: auto;
   }
   .scale-sample {
     white-space: normal;

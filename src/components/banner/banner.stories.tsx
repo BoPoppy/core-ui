@@ -68,7 +68,7 @@ type Story = StoryObj<typeof meta>;
 export const Solid: Story = {
   render: () => (
     <Banner
-      className="w-[560px]"
+      className="w-full"
       action={
         <Button size="sm" variant="secondary">
           Upgrade
@@ -91,7 +91,7 @@ export const Subtle: Story = {
   },
   render: () => (
     <Banner
-      className="w-[560px]"
+      className="w-full"
       variant="subtle"
       description="Restart to apply the update."
       onClose={() => {}}
