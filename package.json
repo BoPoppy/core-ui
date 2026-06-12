@@ -62,7 +62,7 @@
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.4.16",
     "@changesets/cli": "^2.27.11",
     "@storybook/addon-a11y": "^10.4.4",
     "@storybook/addon-docs": "^10.4.4",
