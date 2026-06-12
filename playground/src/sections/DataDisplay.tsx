@@ -23,8 +23,8 @@ import {
   Timeline,
   type TimelineItem,
   Tooltip,
-  TreeView,
   type TreeNode,
+  TreeView,
 } from "@bopoppy/core-ui";
 import { useState } from "react";
 import { Grp, Row, Section } from "../chrome/Section";
