@@ -18,7 +18,13 @@ const withTokens: Decorator = (Story, context) => {
     el.style.background = "var(--bg)";
   }, [personality, theme]);
   return (
-    <div style={{ padding: inDocs ? 24 : 32, minHeight: inDocs ? undefined : "100vh", background: "var(--bg)" }}>
+    <div
+      style={{
+        padding: inDocs ? 24 : 32,
+        minHeight: inDocs ? undefined : "100vh",
+        background: "var(--bg)",
+      }}
+    >
       <Story />
     </div>
   );
