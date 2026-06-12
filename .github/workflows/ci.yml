@@ -30,7 +30,9 @@ jobs:
 
   chromatic:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'pull_request' }}
+    # Dependabot PRs don't receive the CHROMATIC_PROJECT_TOKEN secret, so skip
+    # them rather than fail on a missing token.
+    if: ${{ github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v4
         with:
