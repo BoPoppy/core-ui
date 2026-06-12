@@ -10,7 +10,8 @@
       "a11y": {
         "noSvgWithoutTitle": "off",
         "useFocusableInteractive": "off",
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "useKeyWithClickEvents": "off"
       },
       "suspicious": { "noArrayIndexKey": "off" }
     }

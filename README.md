@@ -96,10 +96,10 @@ All state persists to `localStorage` and is restored on reload.
 
 | Category | Shipped | Planned |
 | --- | --- | --- |
-| **Inputs** | Button, TextField, Checkbox, Radio, Switch, Select, Slider, FAB, ButtonGroup, ToggleButtons, Rating | Autocomplete, Number Field, OTP, Tag Input, … |
+| **Inputs** | Button, TextField, Checkbox, Radio, Switch, Select, Slider, FAB, ButtonGroup, ToggleButtons, Rating, NumberField, OTPInput, TagInput | Autocomplete, Multi-select Combobox |
 | **Data display** | Badge, Avatar, Divider, List, Table, Tooltip, Popover, Kbd | Typography, Tree, Timeline, Code Block, Icon Set |
 | **Surfaces** | Card, Accordion, AppBar, Paper, Carousel | — |
-| **Advanced** | CommandPalette | Date Picker, Color Picker, File Dropzone |
+| **Advanced** | CommandPalette, DatePicker, ColorPicker, FileDropzone | Time Picker, Date Range |
 | **Feedback** | Alert, Banner, Progress, Skeleton, Toast, EmptyState, Dialog | Snackbar variants |
 | **Navigation** | Link, Breadcrumbs, Pagination, Stepper, BottomNav, Tabs, Menu, Drawer | Menubar, Speed Dial |
 | **Advanced** | — | Command Palette, Date Picker, Color Picker, File Dropzone |
@@ -127,7 +127,8 @@ TypeScript · React 19 · Tailwind CSS v4 · [CVA](https://cva.style) · [Radix 
 - [x] Batch 4 — Feedback (Alert, Banner, Progress, Skeleton, Toast, EmptyState)
 - [x] Batch 5 — Navigation + Dialog (Link, Breadcrumbs, Pagination, Stepper, BottomNav, Tabs, Menu, Dialog, Drawer)
 - [x] Batch 6 — Surfaces + Advanced (Accordion, AppBar, Paper, Carousel, Command Palette)
-- [ ] Stretch — Advanced pickers (Date / Color / Time / File Dropzone), extra Inputs (Autocomplete, OTP, Tag Input)
+- [x] Stretch — NumberField, OTPInput, TagInput, FileDropzone, DatePicker, ColorPicker
+- [ ] Remaining — Autocomplete, Combobox, Tree, Timeline, Menubar, Speed Dial, Time Picker, Date Range
 
 ## License
 

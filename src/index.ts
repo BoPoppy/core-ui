@@ -178,3 +178,19 @@ export {
   type CommandPaletteProps,
   type CommandItem,
 } from "./components/command-palette/command-palette";
+
+// Components — Stretch (rich inputs + advanced pickers)
+export { NumberField, type NumberFieldProps } from "./components/number-field/number-field";
+export { OTPInput, type OTPInputProps } from "./components/otp-input/otp-input";
+export { TagInput, type TagInputProps } from "./components/tag-input/tag-input";
+export {
+  FileDropzone,
+  type FileDropzoneProps,
+} from "./components/file-dropzone/file-dropzone";
+export {
+  DatePicker,
+  Calendar,
+  type DatePickerProps,
+  type CalendarProps,
+} from "./components/date-picker/date-picker";
+export { ColorPicker, type ColorPickerProps } from "./components/color-picker/color-picker";
