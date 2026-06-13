@@ -1,5 +1,6 @@
 import { forwardRef, useId, useRef, useState } from "react";
 import { cn } from "../../lib/cn";
+import { FieldChrome } from "../../lib/field-chrome";
 import { useClickOutside } from "../../lib/use-click-outside";
 
 export interface ComboboxOption {
@@ -15,6 +16,11 @@ export interface ComboboxProps {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  id?: string;
+  /** Visible field label, wired to the control via `aria-labelledby`. */
+  label?: string;
+  /** Helper text below the field. */
+  hint?: string;
   "aria-label"?: string;
 }
 
@@ -41,6 +47,9 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
       placeholder = "Select…",
       disabled,
       className,
+      id,
+      label,
+      hint,
       "aria-label": ariaLabel = "Multi-select",
     },
     ref,
@@ -50,6 +59,10 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
     const [open, setOpen] = useState(false);
     const wrapRef = useRef<HTMLDivElement>(null);
     const listId = useId();
+    const autoId = useId();
+    const fieldId = id ?? autoId;
+    const labelId = `${fieldId}-label`;
+    const hintId = `${fieldId}-hint`;
 
     useClickOutside(wrapRef, () => setOpen(false), open);
 
@@ -64,52 +77,56 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
     const chosen = options.filter((o) => selected.includes(o.value));
 
     return (
-      <div ref={mergeRefs(ref, wrapRef)} className={cn("relative max-w-[360px]", className)}>
-        <button
-          type="button"
-          disabled={disabled}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          aria-controls={listId}
-          aria-label={ariaLabel}
-          onClick={() => setOpen((o) => !o)}
-          className={cn(
-            "flex min-h-[44px] w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-sm bg-surface py-1.5 pe-9 ps-2.5 text-start",
-            "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
-            open && "border-accent shadow-[0_0_0_3px_var(--accent-soft)]",
-            "disabled:cursor-not-allowed disabled:opacity-60",
-          )}
-        >
-          {chosen.length === 0 && <span className="text-sm text-faint">{placeholder}</span>}
-          {chosen.map((o) => (
-            <span
-              key={o.value}
-              className="inline-flex items-center gap-1.5 rounded-sm bg-accent-soft py-[3px] pe-1 ps-2.5 text-[13px] font-semibold text-fg pebble:rounded-full"
-            >
-              {o.label}
-              <span
-                role="button"
-                tabIndex={-1}
-                aria-label={`Remove ${o.label}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggle(o.value);
-                }}
-                className="grid size-[17px] place-items-center rounded-full text-muted hover:bg-danger-soft hover:text-danger"
-              >
-                ✕
-              </span>
-            </span>
-          ))}
-          <span
-            aria-hidden="true"
+      <FieldChrome label={label} hint={hint} labelId={labelId} hintId={hintId}>
+        <div ref={mergeRefs(ref, wrapRef)} className={cn("relative max-w-[360px]", className)}>
+          <button
+            type="button"
+            disabled={disabled}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+            aria-controls={listId}
+            aria-label={label ? undefined : ariaLabel}
+            aria-labelledby={label ? labelId : undefined}
+            aria-describedby={hint ? hintId : undefined}
+            onClick={() => setOpen((o) => !o)}
             className={cn(
-              "pointer-events-none absolute end-3.5 top-1/2 size-2 -translate-y-1/2 rotate-45 border-b-2 border-e-2 border-muted transition-transform",
-              open && "-translate-y-1/4 rotate-[225deg]",
+              "flex min-h-[44px] w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-sm bg-surface py-1.5 pe-9 ps-2.5 text-start",
+              "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
+              open && "border-accent shadow-[0_0_0_3px_var(--accent-soft)]",
+              "disabled:cursor-not-allowed disabled:opacity-60",
             )}
-          />
-        </button>
-        {open && (
+          >
+            {chosen.length === 0 && <span className="text-sm text-faint">{placeholder}</span>}
+            {chosen.map((o) => (
+              <span
+                key={o.value}
+                className="inline-flex items-center gap-1.5 rounded-sm bg-accent-soft py-[3px] pe-1 ps-2.5 text-[13px] font-semibold text-fg pebble:rounded-full"
+              >
+                {o.label}
+                <span
+                  role="button"
+                  tabIndex={-1}
+                  aria-label={`Remove ${o.label}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggle(o.value);
+                  }}
+                  className="grid size-[17px] place-items-center rounded-full text-muted hover:bg-danger-soft hover:text-danger"
+                >
+                  ✕
+                </span>
+              </span>
+            ))}
+            <span
+              aria-hidden="true"
+              className={cn(
+                "pointer-events-none absolute end-3.5 top-1/2 size-2 -translate-y-1/2 rotate-45 border-b-2 border-e-2 border-muted transition-transform",
+                open && "-translate-y-1/4 rotate-[225deg]",
+              )}
+            />
+          </button>
+          {/* Always rendered so the menu can animate both open and closed; the
+            `open` state toggles a symmetric opacity/transform/visibility transition. */}
           <div
             id={listId}
             role="listbox"
@@ -117,6 +134,10 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
             className={cn(
               "absolute inset-x-0 top-[calc(100%+6px)] z-20 max-h-[250px] overflow-y-auto rounded-sm bg-surface p-1 shadow-3",
               "border-solid [border-width:var(--line-w)] [border-color:var(--card-line-color)] pop:border-fg",
+              "origin-top transition-all duration-200 ease-out",
+              open
+                ? "visible translate-y-0 scale-100 opacity-100"
+                : "pointer-events-none invisible -translate-y-1 scale-[0.98] opacity-0",
             )}
           >
             {options.map((o) => {
@@ -144,8 +165,8 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
               );
             })}
           </div>
-        )}
-      </div>
+        </div>
+      </FieldChrome>
     );
   },
 );

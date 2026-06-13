@@ -1,5 +1,6 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useId, useState } from "react";
 import { cn } from "../../lib/cn";
+import { FieldChrome } from "../../lib/field-chrome";
 
 export interface NumberFieldProps {
   value?: number;
@@ -10,6 +11,11 @@ export interface NumberFieldProps {
   step?: number;
   disabled?: boolean;
   className?: string;
+  id?: string;
+  /** Visible field label, wired to the input via `htmlFor`/`id`. */
+  label?: string;
+  /** Helper text below the field. */
+  hint?: string;
   "aria-label"?: string;
 }
 
@@ -28,10 +34,16 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       step = 1,
       disabled,
       className,
+      id,
+      label,
+      hint,
       "aria-label": ariaLabel,
     },
     ref,
   ) => {
+    const autoId = useId();
+    const fieldId = id ?? autoId;
+    const hintId = `${fieldId}-hint`;
     const [internal, setInternal] = useState(defaultValue);
     const current = value ?? internal;
 
@@ -42,47 +54,53 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
     };
 
     return (
-      <div
-        className={cn(
-          "inline-flex h-[42px] items-stretch overflow-hidden rounded-sm bg-surface",
-          "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
-          "focus-within:border-accent focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
-          disabled && "opacity-60",
-          className,
-        )}
-      >
-        <button
-          type="button"
-          aria-label="Decrement"
-          className={btn}
-          disabled={disabled || current <= min}
-          onClick={() => set(current - step)}
+      <FieldChrome label={label} hint={hint} htmlFor={fieldId} hintId={hintId}>
+        <div
+          className={cn(
+            "inline-flex h-[42px] items-stretch overflow-hidden rounded-sm bg-surface",
+            "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
+            "focus-within:border-accent focus-within:shadow-[0_0_0_3px_var(--accent-soft)]",
+            disabled && "opacity-60",
+            className,
+          )}
         >
-          −
-        </button>
-        <input
-          ref={ref}
-          type="number"
-          inputMode="numeric"
-          aria-label={ariaLabel}
-          value={current}
-          min={min === Number.NEGATIVE_INFINITY ? undefined : min}
-          max={max === Number.POSITIVE_INFINITY ? undefined : max}
-          step={step}
-          disabled={disabled}
-          onChange={(e) => set(Number(e.target.value))}
-          className="w-[60px] border-none bg-transparent text-center text-[15px] font-semibold text-fg outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-        />
-        <button
-          type="button"
-          aria-label="Increment"
-          className={btn}
-          disabled={disabled || current >= max}
-          onClick={() => set(current + step)}
-        >
-          +
-        </button>
-      </div>
+          <button
+            type="button"
+            aria-label="Decrement"
+            className={btn}
+            disabled={disabled || current <= min}
+            onClick={() => set(current - step)}
+          >
+            −
+          </button>
+          <input
+            ref={ref}
+            id={fieldId}
+            type="number"
+            inputMode="numeric"
+            aria-label={label ? undefined : ariaLabel}
+            aria-describedby={hint ? hintId : undefined}
+            value={current}
+            min={min === Number.NEGATIVE_INFINITY ? undefined : min}
+            max={max === Number.POSITIVE_INFINITY ? undefined : max}
+            step={step}
+            disabled={disabled}
+            onChange={(e) => set(Number(e.target.value))}
+            // The wrapper shows the focus ring; suppress the global
+            // :focus-visible box-shadow so the inner input doesn't draw its own.
+            className="w-[60px] border-none bg-transparent text-center text-[15px] font-semibold text-fg outline-none focus-visible:shadow-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          />
+          <button
+            type="button"
+            aria-label="Increment"
+            className={btn}
+            disabled={disabled || current >= max}
+            onClick={() => set(current + step)}
+          >
+            +
+          </button>
+        </div>
+      </FieldChrome>
     );
   },
 );

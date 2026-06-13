@@ -26,10 +26,15 @@ import { Slider } from "@fv/ui";
 
 // Range — pass two values, get two thumbs
 <Slider defaultValue={[25, 75]} max={100} onValueChange={setRange} />
+
+// With a visible label (matches the design's labelled field)
+<Slider label="Volume" defaultValue={[65]} max={100} />
 \`\`\`
 
+A value **bubble** surfaces the current number above each thumb on hover/focus (and while dragging) — toggle it with \`showValue\` (on by default). The bubble is decorative (\`aria-hidden\`); the live value is already announced through the thumb's \`aria-valuenow\`.
+
 ### Accessibility
-Built on [Radix Slider](https://www.radix-ui.com/primitives/docs/components/slider), so it inherits full keyboard support (arrow keys, Page Up/Down, Home/End) and the correct \`role="slider"\` / \`aria-value*\` semantics on each thumb. Thumbs carry an \`aria-label\` (\`"Value"\`, or \`"Value 1"\` / \`"Value 2"\` for ranges).
+Built on [Radix Slider](https://www.radix-ui.com/primitives/docs/components/slider), so it inherits full keyboard support (arrow keys, Page Up/Down, Home/End) and the correct \`role="slider"\` / \`aria-value*\` semantics on each thumb. Pass \`label\` to render a visible field label that names the thumb (\`aria-labelledby\`); a range prefixes it per thumb (\`"Volume 1"\` / \`"Volume 2"\`). Without a label, thumbs fall back to \`"Value"\` (or \`"Value 1"\` / \`"Value 2"\`).
 
 ### Theming
 Re-skins across the **Pebble / Slate / Pop** personalities and light/dark via CSS tokens — track, range fill, thumb border and focus ring all derive from tokens.
@@ -38,6 +43,16 @@ Re-skins across the **Pebble / Slate / Pop** personalities and light/dark via CS
     },
   },
   argTypes: {
+    label: {
+      control: "text",
+      description: "Visible field label, wired to the thumb(s) for screen readers.",
+      table: { type: { summary: "string" } },
+    },
+    showValue: {
+      control: "boolean",
+      description: "Show a value bubble above each thumb on hover/focus.",
+      table: { type: { summary: "boolean" }, defaultValue: { summary: "true" } },
+    },
     defaultValue: {
       control: false,
       description: "Uncontrolled initial value(s). One thumb is rendered per array entry.",
@@ -80,6 +95,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { args: { defaultValue: [50], max: 100, step: 1 } };
+export const Labelled: Story = {
+  args: { label: "Volume", defaultValue: [65], max: 100, step: 1 },
+  parameters: {
+    docs: {
+      description: { story: "Pass `label` for the design's labelled field above the track." },
+    },
+  },
+};
 export const Stepped: Story = {
   args: { defaultValue: [40], max: 100, step: 20 },
   parameters: {

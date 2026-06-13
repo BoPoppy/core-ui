@@ -75,7 +75,10 @@ export const AvatarGroup = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
       className={cn(
         "inline-flex items-center",
         "[&>*]:border-2 [&>*]:[border-color:var(--bg)] [&>*]:-ms-3 [&>*:first-child]:ms-0",
-        "[&>*]:transition-transform hover:[&>*]:-translate-y-0.5",
+        // Lift only the hovered avatar and bring it to the front (matches the
+        // design's `.avatar:hover { translateY(-3px); z-index }`). The previous
+        // `hover:[&>*]:` compiled to `&:hover > *`, lifting the whole stack.
+        "[&>*]:transition-transform [&>*]:hover:z-10 [&>*]:hover:-translate-y-[3px]",
         className,
       )}
       {...props}

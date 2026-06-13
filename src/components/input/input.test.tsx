@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { axe } from "jest-axe";
 import { describe, expect, it } from "vitest";
-import { TextField } from "./input";
+import { TextareaField, TextField } from "./input";
 
 describe("TextField", () => {
   it("wires the label to the input", () => {
@@ -18,6 +18,25 @@ describe("TextField", () => {
 
   it("has no axe violations", async () => {
     const { container } = render(<TextField label="Email" hint="Required" />);
+    expect(await axe(container)).toHaveNoViolations();
+  });
+});
+
+describe("TextareaField", () => {
+  it("wires the label to the textarea", () => {
+    render(<TextareaField label="Message" />);
+    expect(screen.getByLabelText("Message").tagName).toBe("TEXTAREA");
+  });
+
+  it("marks the field invalid and links the error message", () => {
+    render(<TextareaField label="Message" error="Too short" />);
+    const textarea = screen.getByLabelText("Message");
+    expect(textarea).toHaveAttribute("aria-invalid", "true");
+    expect(textarea).toHaveAccessibleDescription("Too short");
+  });
+
+  it("has no axe violations", async () => {
+    const { container } = render(<TextareaField label="Message" hint="Required" />);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

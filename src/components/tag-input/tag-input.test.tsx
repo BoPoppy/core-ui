@@ -25,4 +25,10 @@ describe("TagInput", () => {
     await userEvent.click(screen.getByRole("button", { name: "Remove x" }));
     expect(onValueChange).toHaveBeenCalledWith(["y"]);
   });
+
+  it("wires the visible label and hint to the input", () => {
+    render(<TagInput label="Topics" hint="Press Enter to add" />);
+    const input = screen.getByRole("textbox", { name: "Topics" });
+    expect(input).toHaveAccessibleDescription("Press Enter to add");
+  });
 });
