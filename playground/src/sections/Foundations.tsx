@@ -1,10 +1,43 @@
+import { useState } from "react";
 import { Grp, Section } from "../chrome/Section";
+
+const MOTION = [
+  { name: "Fast · Standard", var: "--dur-fast · --ease", dur: "fast", ease: "standard" },
+  { name: "Base · Standard", var: "--dur · --ease", dur: "base", ease: "standard" },
+  { name: "Slow · Bounce", var: "--dur-slow · --ease-bounce", dur: "slow", ease: "bounce" },
+] as const;
+
+/** A click-to-play motion specimen: a box slides across its track and back,
+ *  driven by the matching duration + easing tokens. Mirrors the wireframe's
+ *  `.js-motion` tile (but with real per-tile durations, not a flat 1s). */
+function MotionTile({ name, var: cssVar, dur, ease }: (typeof MOTION)[number]) {
+  const [running, setRunning] = useState(false);
+  return (
+    <div
+      className={`spec-tile motion-tile${running ? " run" : ""}`}
+      data-dur={dur}
+      data-ease={ease}
+      onClick={() => setRunning(true)}
+    >
+      <div className="motion-track">
+        <div className="motion-box" onAnimationEnd={() => setRunning(false)} />
+      </div>
+      <div className="spec-cap">
+        <span className="sc-name">{name}</span>
+        <span className="sc-var">{cssVar}</span>
+      </div>
+    </div>
+  );
+}
 
 const SURFACES = [
   { name: "Page", var: "--page-bg" },
   { name: "Background", var: "--bg" },
   { name: "Surface", var: "--surface" },
   { name: "Surface 2", var: "--surface-2" },
+  // rendered as an inset bordered box rather than a filled chip — it's a line
+  // color, not a fill.
+  { name: "Border", var: "--border", border: true },
 ];
 const TEXT = [
   { name: "Text", var: "--text" },
@@ -18,12 +51,12 @@ const ACCENT = [
   { name: "Warning", var: "--warn" },
 ];
 
-function Swatches({ items }: { items: { name: string; var: string }[] }) {
+function Swatches({ items }: { items: { name: string; var: string; border?: boolean }[] }) {
   return (
     <div className="swatch-grid">
       {items.map((s) => (
-        <div className="swatch" key={s.var}>
-          <div className="sw-chip" style={{ background: `var(${s.var})` }} />
+        <div className={`swatch${s.border ? " sw-border" : ""}`} key={s.var}>
+          <div className="sw-chip" style={s.border ? undefined : { background: `var(${s.var})` }} />
           <div className="sw-meta">
             <span className="sw-name">{s.name}</span>
             <span className="sw-var">{s.var}</span>
@@ -139,22 +172,10 @@ export function Foundations() {
         </div>
       </Section>
 
-      <Section num="06" title="Motion" note="durations + easings">
+      <Section num="06" title="Motion" note="click a tile to play · durations + easings">
         <div className="spec-grid">
-          {[
-            ["Fast · Standard", "--dur-fast · --ease"],
-            ["Base · Standard", "--dur · --ease"],
-            ["Slow · Bounce", "--dur-slow · --ease-bounce"],
-          ].map(([name, v]) => (
-            <div className="spec-tile" key={v}>
-              <div className="spec-box r-md" style={{ display: "grid", placeItems: "center" }}>
-                <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 12 }}>{v}</span>
-              </div>
-              <div className="spec-cap">
-                <span className="sc-name">{name}</span>
-                <span className="sc-var">{v}</span>
-              </div>
-            </div>
+          {MOTION.map((m) => (
+            <MotionTile key={m.var} {...m} />
           ))}
         </div>
       </Section>

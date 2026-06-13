@@ -6,6 +6,7 @@ import {
   Divider,
   Kbd,
   KbdCombo,
+  Link,
   List,
   ListItem,
   Popover,
@@ -157,7 +158,50 @@ const TIMELINE: TimelineItem[] = [
   },
 ];
 
-type TableState = "data" | "empty";
+type TableState = "data" | "empty" | "error";
+
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+    <circle cx="11" cy="11" r="8" />
+    <path d="M21 21l-4.3-4.3" />
+  </svg>
+);
+
+const WarnIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+    <path d="M12 9v4M12 17h.01" />
+  </svg>
+);
+
+/** Centered empty/error block for a table state cell, mirroring the design. */
+function StateBlock({
+  icon,
+  title,
+  children,
+  error,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+  error?: boolean;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-2 px-5 py-[34px] text-center text-muted">
+      <span
+        className={`grid size-10 place-items-center rounded-full border-solid [border-width:var(--line-w)] [&_svg]:size-5 ${
+          error
+            ? "border-transparent bg-danger-soft text-danger"
+            : "[border-color:var(--border)] bg-surface-2"
+        }`}
+      >
+        {icon}
+      </span>
+      <span className="text-sm font-bold text-fg">{title}</span>
+      <span className="text-[13px]">{children}</span>
+    </div>
+  );
+}
 
 export function DataDisplay() {
   const [tableState, setTableState] = useState<TableState>("data");
@@ -209,7 +253,7 @@ export function DataDisplay() {
         </Row>
       </Section>
 
-      <Section num="03" title="Data Table" note="populated · empty state">
+      <Section num="03" title="Data Table" note="data · empty · error states">
         <Grp label="state">
           <Row>
             <Button
@@ -225,6 +269,13 @@ export function DataDisplay() {
               onClick={() => setTableState("empty")}
             >
               Empty
+            </Button>
+            <Button
+              variant={tableState === "error" ? "primary" : "secondary"}
+              size="sm"
+              onClick={() => setTableState("error")}
+            >
+              Error
             </Button>
           </Row>
         </Grp>
@@ -260,9 +311,20 @@ export function DataDisplay() {
                   <TableCell>{m.joined}</TableCell>
                 </TableRow>
               ))
+            ) : tableState === "empty" ? (
+              <TableEmpty colSpan={4} className="p-0">
+                <StateBlock icon={<SearchIcon />} title="No members found">
+                  Try adjusting your filters or invite someone new.
+                </StateBlock>
+              </TableEmpty>
             ) : (
-              <TableEmpty colSpan={4}>
-                No members found. Try adjusting your filters or invite someone new.
+              <TableEmpty colSpan={4} className="p-0">
+                <StateBlock error icon={<WarnIcon />} title="Couldn't load members">
+                  Something went wrong.{" "}
+                  <Link variant="underline" href="#" onClick={(e) => e.preventDefault()}>
+                    Retry
+                  </Link>
+                </StateBlock>
               </TableEmpty>
             )}
           </TableBody>

@@ -115,6 +115,10 @@ export {
   Input,
   type InputProps,
   inputVariants,
+  Textarea,
+  TextareaField,
+  type TextareaFieldProps,
+  type TextareaProps,
   TextField,
   type TextFieldProps,
 } from "./components/input/input";

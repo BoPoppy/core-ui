@@ -1,5 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Button } from "../button/button";
 import { ButtonGroup, ButtonGroupItem } from "./button-group";
+
+const MoreIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+    <circle cx="5" cy="12" r="1.8" />
+    <circle cx="12" cy="12" r="1.8" />
+    <circle cx="19" cy="12" r="1.8" />
+  </svg>
+);
 
 const meta = {
   title: "Inputs/ButtonGroup",
@@ -10,13 +19,15 @@ const meta = {
     docs: {
       description: {
         component: `
-A segmented control — a row of connected buttons that share borders and behave as one selection. Built on Radix ToggleGroup, with \`type="single"\` (pick one) or \`type="multiple"\` (toggle several, e.g. text formatting).
+A row of connected buttons that share borders and rounded ends. It has two modes:
+
+- **Segmented control** (\`type="single" | "multiple"\`) — built on Radix ToggleGroup; tracks selection. Children are \`<ButtonGroupItem>\`s.
+- **Grouped actions** (omit \`type\`) — a presentational \`<div role="group">\` that visually connects plain \`<Button>\` children. Nothing is selected; each button is its own action.
 
 ### When to use
-- Choosing one option from a small, mutually exclusive set (e.g. Day / Week / Month).
-- Toggling independent formatting options with \`type="multiple"\` (e.g. bold / italic / underline).
-
-For unconnected actions, use individual [Button](/docs/inputs-button--docs)s. For binary on/off, a single toggle or [Checkbox](/docs/inputs-checkbox--docs) is clearer.
+- Choosing one option from a small, mutually exclusive set (e.g. Day / Week / Month) → \`type="single"\`.
+- Toggling independent formatting options (e.g. bold / italic / underline) → \`type="multiple"\`.
+- Connecting a few related actions into one control (e.g. Save / Duplicate / ⋯) → no \`type\`.
 
 ### Usage
 \`\`\`tsx
@@ -84,6 +95,26 @@ export const Multiple: Story = {
       <ButtonGroupItem value="bold">B</ButtonGroupItem>
       <ButtonGroupItem value="italic">I</ButtonGroupItem>
       <ButtonGroupItem value="underline">U</ButtonGroupItem>
+    </ButtonGroup>
+  ),
+};
+
+export const GroupedActions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "No `type` → a non-selectable group of connected actions. Children are plain `<Button>`s; nothing is toggled.",
+      },
+    },
+  },
+  render: () => (
+    <ButtonGroup>
+      <Button variant="secondary">Save</Button>
+      <Button variant="secondary">Duplicate</Button>
+      <Button variant="secondary" iconOnly aria-label="more">
+        <MoreIcon />
+      </Button>
     </ButtonGroup>
   ),
 };

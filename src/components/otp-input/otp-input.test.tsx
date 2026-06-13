@@ -21,4 +21,10 @@ describe("OTPInput", () => {
     await userEvent.keyboard("a");
     expect(onValueChange).not.toHaveBeenCalledWith(expect.stringContaining("a"));
   });
+
+  it("names the group with its visible label", () => {
+    render(<OTPInput length={4} label="Enter the 6-digit code" hint="Paste it" />);
+    const group = screen.getByRole("group", { name: "Enter the 6-digit code" });
+    expect(group).toHaveAccessibleDescription("Paste it");
+  });
 });
