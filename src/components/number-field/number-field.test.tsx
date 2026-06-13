@@ -19,4 +19,10 @@ describe("NumberField", () => {
     await userEvent.click(screen.getByRole("button", { name: "Decrement" }));
     expect(onValueChange).toHaveBeenCalledWith(3);
   });
+
+  it("wires the visible label to the input", () => {
+    render(<NumberField label="Quantity" hint="How many?" />);
+    const input = screen.getByRole("spinbutton", { name: "Quantity" });
+    expect(input).toHaveAccessibleDescription("How many?");
+  });
 });

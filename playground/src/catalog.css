@@ -279,6 +279,22 @@ body {
   color: var(--text-muted);
   margin-bottom: 10px;
 }
+/* handwritten annotation callout (wireframe ink) */
+.note {
+  font-family: "Caveat", cursive;
+  font-size: 16px;
+  color: var(--page-ink);
+  border: 1.5px dashed var(--page-ink);
+  border-radius: 12px;
+  padding: 7px 13px;
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  background: transparent;
+}
+.note .arr {
+  font-size: 18px;
+}
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -289,6 +305,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+/* responsive grid for form-field previews — wraps to as many 240px+ columns as
+   fit, collapsing to a single full-width column on narrow screens (mirrors the
+   design's `repeat(auto-fill, minmax(240px, 1fr))`). */
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  align-items: start;
+  gap: 16px;
 }
 .demo-panel {
   border: var(--line-w) solid var(--card-line-color);
@@ -329,8 +354,19 @@ body {
   height: 62px;
   border-bottom: var(--line-w) solid var(--card-line-color);
 }
+.swatch.sw-border {
+  box-shadow: none;
+}
 .swatch.sw-border .sw-chip {
-  background: var(--border);
+  background: var(--surface);
+  position: relative;
+}
+.swatch.sw-border .sw-chip::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 2px solid var(--border);
+  border-radius: 6px;
 }
 .swatch .sw-meta {
   padding: 9px 11px;
@@ -398,6 +434,61 @@ body {
   font-family: ui-monospace, monospace;
   font-size: 11px;
   color: var(--text-muted);
+}
+
+/* motion demo — click a tile to play */
+.motion-tile {
+  cursor: pointer;
+}
+.motion-track {
+  position: relative;
+  width: 100%;
+  height: 84px;
+  padding: 0 8px;
+  background: var(--surface);
+  border: var(--line-w) solid var(--card-line-color);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+[data-personality="pop"] .motion-track {
+  border-color: var(--text);
+}
+.motion-box {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--r-sm);
+  background: var(--accent);
+  transform: translateY(-50%);
+}
+.motion-tile.run .motion-box {
+  animation: motiondemo var(--dur) var(--ease);
+}
+/* each tile plays at its documented duration token, so Fast / Base / Slow
+   are visibly different speeds. */
+.motion-tile[data-dur="fast"].run .motion-box {
+  animation-duration: var(--dur-fast);
+}
+.motion-tile[data-dur="slow"].run .motion-box {
+  animation-duration: var(--dur-slow);
+}
+.motion-tile[data-ease="bounce"].run .motion-box {
+  animation-timing-function: var(--ease-bounce);
+}
+/* `left` percentages resolve against the track width (not the box's own
+   width), so the box actually traverses the lane and back. */
+@keyframes motiondemo {
+  0% {
+    left: 8px;
+  }
+  50% {
+    left: calc(100% - 46px - 8px);
+  }
+  100% {
+    left: 8px;
+  }
 }
 .scale-list,
 .space-list {

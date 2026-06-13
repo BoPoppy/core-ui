@@ -1,5 +1,6 @@
 import { forwardRef, useId, useMemo, useRef, useState } from "react";
 import { cn } from "../../lib/cn";
+import { FieldChrome } from "../../lib/field-chrome";
 import { useClickOutside } from "../../lib/use-click-outside";
 
 export interface AutocompleteProps {
@@ -11,6 +12,11 @@ export interface AutocompleteProps {
   emptyMessage?: string;
   disabled?: boolean;
   className?: string;
+  id?: string;
+  /** Visible field label, wired to the input via `htmlFor`/`id`. */
+  label?: string;
+  /** Helper text below the field. */
+  hint?: string;
   "aria-label"?: string;
 }
 
@@ -29,6 +35,9 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
       emptyMessage = "No matches",
       disabled,
       className,
+      id,
+      label,
+      hint,
       "aria-label": ariaLabel = "Autocomplete",
     },
     ref,
@@ -39,6 +48,9 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     const [active, setActive] = useState(0);
     const wrapRef = useRef<HTMLDivElement>(null);
     const listId = useId();
+    const autoId = useId();
+    const fieldId = id ?? autoId;
+    const hintId = `${fieldId}-hint`;
 
     useClickOutside(wrapRef, () => setOpen(false), open);
 
@@ -58,52 +70,60 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
     };
 
     return (
-      <div ref={wrapRef} className={cn("relative max-w-[340px]", className)}>
-        <input
-          ref={ref}
-          value={text}
-          disabled={disabled}
-          placeholder={placeholder}
-          role="combobox"
-          aria-label={ariaLabel}
-          aria-expanded={open}
-          aria-controls={listId}
-          aria-autocomplete="list"
-          onChange={(e) => {
-            set(e.target.value);
-            setOpen(true);
-            setActive(0);
-          }}
-          onFocus={() => setOpen(true)}
-          onKeyDown={(e) => {
-            if (e.key === "ArrowDown") {
-              e.preventDefault();
+      <FieldChrome label={label} hint={hint} htmlFor={fieldId} hintId={hintId}>
+        <div ref={wrapRef} className={cn("relative max-w-[340px]", className)}>
+          <input
+            ref={ref}
+            id={fieldId}
+            value={text}
+            disabled={disabled}
+            placeholder={placeholder}
+            role="combobox"
+            aria-label={label ? undefined : ariaLabel}
+            aria-describedby={hint ? hintId : undefined}
+            aria-expanded={open}
+            aria-controls={listId}
+            aria-autocomplete="list"
+            onChange={(e) => {
+              set(e.target.value);
               setOpen(true);
-              setActive((a) => Math.min(filtered.length - 1, a + 1));
-            } else if (e.key === "ArrowUp") {
-              e.preventDefault();
-              setActive((a) => Math.max(0, a - 1));
-            } else if (e.key === "Enter" && open && filtered[active]) {
-              e.preventDefault();
-              choose(filtered[active]);
-            } else if (e.key === "Escape") {
-              setOpen(false);
-            }
-          }}
-          className={cn(
-            "h-[42px] w-full rounded-sm bg-surface px-3.5 text-sm text-fg outline-none",
-            "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
-            "placeholder:text-faint focus:border-accent focus:shadow-[0_0_0_3px_var(--accent-soft)]",
-            "disabled:cursor-not-allowed disabled:opacity-60",
-          )}
-        />
-        {open && (
+              setActive(0);
+            }}
+            onFocus={() => setOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowDown") {
+                e.preventDefault();
+                setOpen(true);
+                setActive((a) => Math.min(filtered.length - 1, a + 1));
+              } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                setActive((a) => Math.max(0, a - 1));
+              } else if (e.key === "Enter" && open && filtered[active]) {
+                e.preventDefault();
+                choose(filtered[active]);
+              } else if (e.key === "Escape") {
+                setOpen(false);
+              }
+            }}
+            className={cn(
+              "h-[42px] w-full rounded-sm bg-surface px-3.5 text-sm text-fg outline-none",
+              "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
+              "placeholder:text-faint focus:border-accent focus:shadow-[0_0_0_3px_var(--accent-soft)]",
+              "disabled:cursor-not-allowed disabled:opacity-60",
+            )}
+          />
+          {/* Always rendered so the menu can animate both open and closed; the
+            `open` state toggles a symmetric opacity/transform/visibility transition. */}
           <div
             id={listId}
             role="listbox"
             className={cn(
               "absolute inset-x-0 top-[calc(100%+6px)] z-20 max-h-60 overflow-y-auto rounded-sm bg-surface p-1 shadow-3",
               "border-solid [border-width:var(--line-w)] [border-color:var(--card-line-color)] pop:border-fg",
+              "origin-top transition-all duration-200 ease-out",
+              open
+                ? "visible translate-y-0 scale-100 opacity-100"
+                : "pointer-events-none invisible -translate-y-1 scale-[0.98] opacity-0",
             )}
           >
             {filtered.length === 0 && (
@@ -126,8 +146,8 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutocompleteProps>(
               </button>
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      </FieldChrome>
     );
   },
 );

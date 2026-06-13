@@ -1,5 +1,27 @@
 # @bopoppy/core-ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 86c6215: Add `Textarea` and `TextareaField` for multi-line text entry, completing the Text Field section from the design. `TextareaField` mirrors `TextField` (label/hint/error/success wiring, `aria-describedby` + `aria-invalid`) and the bare `Textarea` shares the input token styling with a resizable `min-height`.
+- 86c6215: Add optional `label` (and `hint`) props to `NumberField`, `Autocomplete`, `Combobox`, `TagInput`, and `OTPInput`, matching the design's labelled fields. The label/hint chrome is wired for accessibility per control type — `htmlFor`/`id` for the input-backed controls (NumberField, Autocomplete, TagInput) and `aria-labelledby` for the composite controls (Combobox's button, OTPInput's group) — with the hint linked via `aria-describedby`. Passing neither renders the control bare, so existing usages are unchanged.
+- 86c6215: `Slider` now matches the design's labelled field:
+
+  - Optional `label` prop renders a label above the track (e.g. "Volume", "Price range") and is wired to the thumb(s) for screen readers via `aria-labelledby` (a range prefixes the label per thumb).
+  - A value bubble surfaces the current number above each thumb on hover/focus and while dragging, ported from the design's `.bubble`. Toggle it with `showValue` (on by default); it's decorative (`aria-hidden`) since the value is already announced via `aria-valuenow`.
+
+  Sliders without a `label` keep their bare track; existing usages are unchanged apart from the new bubble.
+
+- 86c6215: Fix bugs UI
+
+### Patch Changes
+
+- 86c6215: `Autocomplete` and `Combobox` now animate their options menu both opening and closing — a symmetric fade + drop-in/out (opacity, transform, and visibility transition), matching the design's animated dropdown. The menu stays mounted and toggles the transition via its open state, so closing fades out instead of disappearing instantly. Respects `prefers-reduced-motion`.
+- 86c6215: Fix `AvatarGroup` hover behavior. Hovering anywhere on the stack lifted every avatar at once because the hover variant compiled to `&:hover > *`. Now only the hovered avatar lifts and it rises to the front (`z-index`), matching the design.
+- 86c6215: Fix a stray focus ring inside `TagInput` and `NumberField`. Their borderless inner `<input>` matched the global `:focus-visible` box-shadow rule and drew its own ring inside the wrapper — which already shows the focus ring — producing a double "shadow box". The inner input now suppresses that ring (`focus-visible:shadow-none`), so only the wrapper's ring shows, matching the design.
+- 86c6215: `TagInput` now keeps its placeholder visible after tags are added, matching the design (which always shows "Add a tag…"). Previously the placeholder was hidden once any tag existed.
+
 ## 0.3.0
 
 ### Minor Changes

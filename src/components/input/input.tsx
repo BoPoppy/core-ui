@@ -35,6 +35,26 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
+export interface TextareaProps
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size">,
+    VariantProps<typeof inputVariants> {}
+
+/** Bare multi-line input. Use `TextareaField` for the labelled, accessible wrapper. */
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className, state, ...props }, ref) => (
+    <textarea
+      ref={ref}
+      className={cn(
+        inputVariants({ state }),
+        "h-auto min-h-[84px] resize-y py-2.5 leading-normal",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+Textarea.displayName = "Textarea";
+
 export interface TextFieldProps extends InputProps {
   label?: string;
   /** Helper text below the field. Replaced by `error`/`success` when set. */
@@ -83,3 +103,52 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
   },
 );
 TextField.displayName = "TextField";
+
+export interface TextareaFieldProps extends TextareaProps {
+  label?: string;
+  /** Helper text below the field. Replaced by `error`/`success` when set. */
+  hint?: string;
+  error?: string;
+  success?: string;
+}
+
+/**
+ * Labelled multi-line field with hint/error/success states. Wires `label`↔`textarea`
+ * via `for`/`id` and links the message with `aria-describedby` + `aria-invalid`.
+ */
+export const TextareaField = forwardRef<HTMLTextAreaElement, TextareaFieldProps>(
+  ({ label, hint, error, success, id, className, state, ...props }, ref) => {
+    const autoId = useId();
+    const fieldId = id ?? autoId;
+    const msgId = `${fieldId}-msg`;
+    const message = error ?? success ?? hint;
+    const resolvedState = error ? "error" : success ? "success" : state;
+
+    return (
+      <div className={cn("flex min-w-0 flex-col gap-1.5", className)}>
+        {label && (
+          <label htmlFor={fieldId} className="text-[13px] font-semibold text-fg">
+            {label}
+          </label>
+        )}
+        <Textarea
+          ref={ref}
+          id={fieldId}
+          state={resolvedState}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={message ? msgId : undefined}
+          {...props}
+        />
+        {message && (
+          <span
+            id={msgId}
+            className={cn("text-xs text-muted", error && "text-danger", success && "text-success")}
+          >
+            {message}
+          </span>
+        )}
+      </div>
+    );
+  },
+);
+TextareaField.displayName = "TextareaField";

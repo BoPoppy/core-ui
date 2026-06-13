@@ -4,6 +4,8 @@ import { cn } from "../../lib/cn";
 
 export const fabVariants = cva(
   [
+    // Vertical stack (icon over label), matching the design's extended FAB; for
+    // icon-only sizes it just centers the single child.
     "inline-grid place-items-center bg-accent text-accent-fg shadow-2 cursor-pointer",
     "border-solid [border-width:var(--line-w)] border-transparent pop:border-fg",
     "transition-[transform,box-shadow,filter] duration-150",
@@ -16,15 +18,20 @@ export const fabVariants = cva(
   ],
   {
     variants: {
-      size: {
-        sm: "size-[42px] [&_svg]:size-[18px]",
-        md: "size-14 [&_svg]:size-6",
-      },
+      // `size` only matters for icon-only FABs; the fixed dimensions + icon size
+      // are applied via compoundVariants so they never collide with `extended`.
+      size: { sm: "", md: "" },
       extended: {
-        true: "w-auto h-13 gap-2.5 px-[22px] text-[15px] [font-weight:var(--font-weight-strong)] rounded-full pop:rounded-[14px]",
+        // Auto-width pill with the icon stacked over a tight-leading label;
+        // 22px icon + 9px gap + ~15px label fits inside the 52px height.
+        true: "w-auto h-13 gap-[9px] px-[22px] text-[15px] leading-none [font-weight:var(--font-weight-strong)] rounded-full pop:rounded-[14px] [&_svg]:size-[22px]",
         false: "",
       },
     },
+    compoundVariants: [
+      { extended: false, size: "sm", class: "size-[42px] [&_svg]:size-[18px]" },
+      { extended: false, size: "md", class: "size-14 [&_svg]:size-6" },
+    ],
     defaultVariants: { size: "md", extended: false },
   },
 );

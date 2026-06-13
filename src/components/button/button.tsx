@@ -7,7 +7,7 @@ export const buttonVariants = cva(
   // base — token-driven; `--press` and `--font-weight-strong` come from the
   // active personality, so the button re-skins across Pebble/Slate/Pop.
   [
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap select-none",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap select-none [&_svg]:shrink-0",
     "rounded-btn border-solid [border-width:var(--line-w)] text-sm [font-weight:var(--font-weight-strong)]",
     "cursor-pointer transition-[transform,box-shadow,background-color,color,border-color,filter] duration-150",
     "active:[transform:var(--press)]",
@@ -26,9 +26,9 @@ export const buttonVariants = cva(
           "bg-danger text-white border-transparent shadow-1 hover:brightness-95 hover:shadow-2 pop:border-fg",
       },
       size: {
-        sm: "h-8 px-3.5 text-[13px]",
-        md: "h-10 px-5",
-        lg: "h-[50px] px-7 text-base",
+        sm: "h-8 px-3.5 text-[13px] [&_svg]:size-4",
+        md: "h-10 px-5 [&_svg]:size-[18px]",
+        lg: "h-[50px] px-7 text-base [&_svg]:size-5",
       },
       iconOnly: {
         true: "px-0 aspect-square",

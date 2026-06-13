@@ -22,4 +22,9 @@ describe("Autocomplete", () => {
     await userEvent.keyboard("{ArrowDown}{Enter}");
     expect(onValueChange).toHaveBeenLastCalledWith("Banana");
   });
+
+  it("names the input with its visible label", () => {
+    render(<Autocomplete options={options} label="Assign a teammate" />);
+    expect(screen.getByRole("combobox", { name: "Assign a teammate" })).toBeInTheDocument();
+  });
 });

@@ -23,4 +23,9 @@ describe("Combobox", () => {
     await userEvent.click(screen.getByRole("button", { name: "Remove Alpha" }));
     expect(onValueChange).toHaveBeenLastCalledWith(["b"]);
   });
+
+  it("names the control with its visible label", () => {
+    render(<Combobox options={options} label="Assignees" />);
+    expect(screen.getByRole("button", { name: "Assignees" })).toBeInTheDocument();
+  });
 });
