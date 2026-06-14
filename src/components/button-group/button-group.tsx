@@ -68,7 +68,7 @@ export const ButtonGroupItem = forwardRef<
       "pebble:first:rounded-s-md pebble:last:rounded-e-md",
       "[&:not(:first-child)]:-ms-px",
       "hover:bg-surface-2 active:[transform:var(--press)]",
-      "data-[state=on]:z-[1] data-[state=on]:bg-accent data-[state=on]:text-accent-fg data-[state=on]:border-accent",
+      "data-[state=on]:z-[1] data-[state=on]:bg-accent data-[state=on]:text-accent-fg",
       "focus-visible:outline-none focus-visible:z-[1] focus-visible:shadow-[0_0_0_3px_var(--accent-soft)]",
       "disabled:opacity-45 disabled:cursor-not-allowed",
       className,

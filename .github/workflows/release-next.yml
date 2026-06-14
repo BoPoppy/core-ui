@@ -1,18 +1,21 @@
-name: Release
+name: Release (pre-release)
+
+# Publishes a versioned pre-release whenever the `next` branch is pushed.
+# To enter pre-release mode on that branch, run once:
+#   pnpm changeset pre enter next
+# then commit the resulting .changeset/pre.json.
+# Exit pre-release mode when you're ready to cut a stable release:
+#   pnpm changeset pre exit
 
 on:
-  workflow_run:
-    workflows: [CI]
-    types: [completed]
-    branches: [main]
+  push:
+    branches: [next]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  release:
+  release-next:
     runs-on: ubuntu-latest
-    # Only run when CI passed — this is the gate that prevents publishing broken code.
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       contents: write
       pull-requests: write
@@ -20,8 +23,6 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: main
       - uses: pnpm/action-setup@v6
         with:
           version: 11
@@ -32,12 +33,11 @@ jobs:
           scope: "@bopoppy"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Create Release PR or publish to GitHub Packages
+      - name: Create pre-release PR or publish pre-release to GitHub Packages
         uses: changesets/action@v1
         with:
           publish: pnpm release
           version: pnpm version-packages
         env:
-          # Built-in token; has packages:write to this repo's GitHub Packages.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

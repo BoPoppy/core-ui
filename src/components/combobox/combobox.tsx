@@ -91,8 +91,8 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
             onClick={() => setOpen((o) => !o)}
             className={cn(
               "flex min-h-[44px] w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-sm bg-surface py-1.5 pe-9 ps-2.5 text-start",
-              "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
-              open && "border-accent shadow-[0_0_0_3px_var(--accent-soft)]",
+              "border-solid [border-width:var(--line-w)] border-(--line-color) pop:border-fg",
+              "aria-expanded:border-accent aria-expanded:shadow-[0_0_0_3px_var(--accent-soft)]",
               "disabled:cursor-not-allowed disabled:opacity-60",
             )}
           >
@@ -155,7 +155,7 @@ export const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
                     className={cn(
                       "grid size-[18px] flex-none place-items-center rounded-sm text-accent-fg",
                       "border-solid [border-width:var(--line-w)] [border-color:var(--line-color)] pop:border-fg",
-                      isSel && "bg-accent border-accent",
+                      isSel && "bg-accent",
                     )}
                   >
                     {isSel && <Check />}

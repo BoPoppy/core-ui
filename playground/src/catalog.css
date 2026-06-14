@@ -544,6 +544,34 @@ body {
   font-weight: 700;
   letter-spacing: 0.08em;
 }
+.t-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.type-spec {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.type-row {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 12px;
+}
+.type-row:last-child {
+  border-bottom: none;
+}
+.type-tag {
+  font-family: "Caveat", cursive;
+  font-size: 14px;
+  color: var(--text-faint);
+  width: 70px;
+  flex: none;
+}
 .space-row {
   display: flex;
   align-items: center;
@@ -782,6 +810,20 @@ body {
   }
   .scale-sample {
     white-space: normal;
+  }
+  /* Typography section stacks the tag above the sample on narrow screens. */
+  .type-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .type-tag {
+    width: auto;
+  }
+  .t-h1 {
+    font-size: 34px;
+  }
+  .t-h2 {
+    font-size: 26px;
   }
   /* Dock the tweaks panel as a bottom sheet so it stops covering
      the canvas and never exceeds the viewport width. */
