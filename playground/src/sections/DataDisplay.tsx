@@ -389,13 +389,19 @@ export function DataDisplay() {
       <Section num="06" title="Tooltip" note="hover · four directions">
         <Row>
           <Tooltip content="Helpful hint text" side="top">
-            <Button variant="secondary" size="sm">Top</Button>
+            <Button variant="secondary" size="sm">
+              Top
+            </Button>
           </Tooltip>
           <Tooltip content="Helpful hint text" side="bottom">
-            <Button variant="secondary" size="sm">Bottom</Button>
+            <Button variant="secondary" size="sm">
+              Bottom
+            </Button>
           </Tooltip>
           <Tooltip content="Helpful hint text" side="right">
-            <Button variant="secondary" size="sm">Right</Button>
+            <Button variant="secondary" size="sm">
+              Right
+            </Button>
           </Tooltip>
           <Tooltip content="Helpful hint text" side="top" defaultOpen>
             <Badge variant="accent">i</Badge>
