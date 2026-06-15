@@ -1,6 +1,6 @@
 {
   "name": "@bopoppy/core-ui",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Core UI — a token-driven React component library with three switchable personalities (Pebble / Slate / Pop), light + dark themes, and runtime tweaks.",
   "license": "MIT",
   "author": "Tri Vo",
