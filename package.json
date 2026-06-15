@@ -40,7 +40,7 @@
     "playground": "vite --config playground/vite.config.ts",
     "build:playground": "tsc -p playground/tsconfig.json && vite build --config playground/vite.config.ts",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "release": "pnpm build && changeset publish --provenance",
+    "release": "pnpm build && changeset publish",
     "version-packages": "changeset version"
   },
   "peerDependencies": {
