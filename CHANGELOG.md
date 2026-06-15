@@ -1,5 +1,13 @@
 # @bopoppy/core-ui
 
+## 0.4.1
+
+### Patch Changes
+
+- [#23](https://github.com/BoPoppy/core-ui/pull/23) [`1311a63`](https://github.com/BoPoppy/core-ui/commit/1311a63c1ef68d4090a85ab8129e56652ddc542d) Thanks [@BoPoppy](https://github.com/BoPoppy)! - fix cicd
+
+- [#24](https://github.com/BoPoppy/core-ui/pull/24) [`4cbaeca`](https://github.com/BoPoppy/core-ui/commit/4cbaeca9cdde5e1b625bc0903a07407bad052711) Thanks [@BoPoppy](https://github.com/BoPoppy)! - update cicd
+
 ## 0.4.0
 
 ### Minor Changes
