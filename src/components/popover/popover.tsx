@@ -25,7 +25,19 @@ export const PopoverContent = forwardRef<
       {...props}
     >
       {children}
-      <RadixPopover.Arrow className="fill-surface [stroke:var(--card-line-color)]" />
+      {/* Arrow rendered as a rotated-square "notch" (matches the design's
+          `.popover::before`): a surface-filled square turned 45° showing only
+          its two outer borders, so the caret edges read as a continuation of
+          the panel border and the fill masks the panel's own border line.
+          Radix rotates the arrow per side, so the single bottom/right border
+          pair becomes the correct ^ / v / < / > on every placement. */}
+      <RadixPopover.Arrow
+        className={cn(
+          "size-3 translate-y-[calc(-50%_-_1px)] rotate-45 bg-surface fill-surface",
+          "border-solid [border-bottom-width:var(--line-w)] [border-right-width:var(--line-w)]",
+          "[border-color:var(--card-line-color)] pop:border-fg",
+        )}
+      />
     </RadixPopover.Content>
   </RadixPopover.Portal>
 ));
