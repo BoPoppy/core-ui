@@ -8,8 +8,8 @@ describe("ButtonGroup", () => {
   it("renders children inside action group mode", () => {
     render(
       <ButtonGroup>
-        <button>Save</button>
-        <button>Duplicate</button>
+        <button type="button">Save</button>
+        <button type="button">Duplicate</button>
       </ButtonGroup>,
     );
     expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();

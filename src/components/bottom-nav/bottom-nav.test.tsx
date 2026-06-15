@@ -42,7 +42,9 @@ describe("BottomNav", () => {
   });
 
   it("applies a custom className to the nav element", () => {
-    render(<BottomNav items={items} value="home" onValueChange={vi.fn()} className="custom-class" />);
+    render(
+      <BottomNav items={items} value="home" onValueChange={vi.fn()} className="custom-class" />,
+    );
     expect(screen.getByRole("navigation")).toHaveClass("custom-class");
   });
 

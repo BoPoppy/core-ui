@@ -67,7 +67,12 @@ describe("List", () => {
   it("has no axe violations", async () => {
     const { container } = render(
       <List>
-        <ListItem icon={<svg aria-hidden="true" />} title="First" subtitle="Details" meta="1h ago" />
+        <ListItem
+          icon={<svg aria-hidden="true" />}
+          title="First"
+          subtitle="Details"
+          meta="1h ago"
+        />
         <ListItem title="Second" subtitle="More details" />
       </List>,
     );

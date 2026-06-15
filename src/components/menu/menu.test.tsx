@@ -6,8 +6,8 @@ import {
   Menu,
   MenuContent,
   MenuGroup,
-  MenuLabel,
   MenuItem,
+  MenuLabel,
   MenuSeparator,
   MenuTrigger,
 } from "./menu";

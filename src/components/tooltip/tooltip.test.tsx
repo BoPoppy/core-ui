@@ -8,7 +8,7 @@ describe("Tooltip", () => {
   it("renders the trigger child", () => {
     render(
       <Tooltip content="Tip text">
-        <button>Hover me</button>
+        <button type="button">Hover me</button>
       </Tooltip>,
     );
     expect(screen.getByRole("button", { name: "Hover me" })).toBeInTheDocument();
@@ -17,7 +17,7 @@ describe("Tooltip", () => {
   it("shows tooltip content when defaultOpen is true", () => {
     render(
       <Tooltip content="Visible tip" defaultOpen>
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent("Visible tip");
@@ -26,7 +26,7 @@ describe("Tooltip", () => {
   it("renders ReactNode content when defaultOpen is true", () => {
     render(
       <Tooltip content={<span>Rich</span>} defaultOpen>
-        <button>Trigger</button>
+        <button type="button">Trigger</button>
       </Tooltip>,
     );
     expect(screen.getByRole("tooltip")).toHaveTextContent("Rich");
@@ -35,7 +35,7 @@ describe("Tooltip", () => {
   it("shows tooltip content on hover", async () => {
     render(
       <Tooltip content="Hovered tip" delayDuration={0}>
-        <button>Hover target</button>
+        <button type="button">Hover target</button>
       </Tooltip>,
     );
     await userEvent.hover(screen.getByRole("button", { name: "Hover target" }));
@@ -48,7 +48,7 @@ describe("Tooltip", () => {
     render(
       <TooltipProvider>
         <Tooltip content="Provider tip" defaultOpen>
-          <button>Wrapped trigger</button>
+          <button type="button">Wrapped trigger</button>
         </Tooltip>
       </TooltipProvider>,
     );
@@ -58,7 +58,7 @@ describe("Tooltip", () => {
   it("has no axe violations", async () => {
     const { container } = render(
       <Tooltip content="Accessible tip" defaultOpen>
-        <button>Accessible trigger</button>
+        <button type="button">Accessible trigger</button>
       </Tooltip>,
     );
     expect(await axe(container)).toHaveNoViolations();

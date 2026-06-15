@@ -25,7 +25,7 @@ describe("EmptyState", () => {
   });
 
   it("renders the action when provided", () => {
-    render(<EmptyState action={<button>Add item</button>} />);
+    render(<EmptyState action={<button type="button">Add item</button>} />);
     expect(screen.getByRole("button", { name: "Add item" })).toBeInTheDocument();
   });
 
@@ -40,7 +40,7 @@ describe("EmptyState", () => {
         icon={<svg aria-hidden="true" />}
         title="No results"
         description="Try adjusting your search."
-        action={<button>Reset</button>}
+        action={<button type="button">Reset</button>}
       />,
     );
     expect(await axe(container)).toHaveNoViolations();

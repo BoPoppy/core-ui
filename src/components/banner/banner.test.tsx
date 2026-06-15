@@ -21,7 +21,7 @@ describe("Banner", () => {
   });
 
   it("renders action when provided", () => {
-    render(<Banner action={<button>Retry</button>}>Error</Banner>);
+    render(<Banner action={<button type="button">Retry</button>}>Error</Banner>);
     expect(screen.getByRole("button", { name: "Retry" })).toBeInTheDocument();
   });
 
@@ -44,7 +44,12 @@ describe("Banner", () => {
 
   it("has no axe violations", async () => {
     const { container } = render(
-      <Banner variant="solid" icon={<svg aria-hidden="true" />} description="Details here" onClose={vi.fn()}>
+      <Banner
+        variant="solid"
+        icon={<svg aria-hidden="true" />}
+        description="Details here"
+        onClose={vi.fn()}
+      >
         Accessible Banner
       </Banner>,
     );
