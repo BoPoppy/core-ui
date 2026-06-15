@@ -228,13 +228,18 @@ export function DataDisplay() {
           </Row>
         </Grp>
         <Grp label="stacked group">
-          <AvatarGroup>
-            <Avatar fallback="AL" />
-            <Avatar variant="accent" fallback="GH" />
-            <Avatar fallback="AT" />
-            <Avatar fallback="KJ" />
-            <Avatar fallback="+5" />
-          </AvatarGroup>
+          <Row>
+            <AvatarGroup>
+              <Avatar fallback="AL" />
+              <Avatar variant="accent" fallback="GH" />
+              <Avatar fallback="AT" />
+              <Avatar fallback="KJ" />
+              <Avatar fallback="+5" />
+            </AvatarGroup>
+            <span className="note">
+              <span className="arr">↜</span> hover to fan out
+            </span>
+          </Row>
         </Grp>
       </Section>
 
@@ -383,30 +388,70 @@ export function DataDisplay() {
 
       <Section num="06" title="Tooltip" note="hover · four directions">
         <Row>
-          <Tooltip content="Tooltip on top" side="top">
+          <Tooltip content="Helpful hint text" side="top">
             <Button variant="secondary" size="sm">
               Top
             </Button>
           </Tooltip>
-          <Tooltip content="Tooltip below" side="bottom">
+          <Tooltip content="Helpful hint text" side="bottom">
             <Button variant="secondary" size="sm">
               Bottom
             </Button>
           </Tooltip>
-          <Tooltip content="To the right" side="right">
+          <Tooltip content="Helpful hint text" side="right">
             <Button variant="secondary" size="sm">
               Right
             </Button>
           </Tooltip>
-          <Tooltip content="To the left" side="left">
-            <Button variant="secondary" size="sm">
-              Left
-            </Button>
+          <Tooltip content="Helpful hint text" side="top" defaultOpen>
+            <Badge variant="accent">i</Badge>
           </Tooltip>
+          <span className="note">
+            <span className="arr">↜</span> hover any of these
+          </span>
         </Row>
       </Section>
 
-      <Section num="07" title="Popover" note="click trigger · rich floating content">
+      <Section num="07" title="Typography" note="scale · weights · styles">
+        <div className="type-spec">
+          <div className="type-row">
+            <span className="type-tag">h1 · 44</span>
+            <span className="t-h1">The quick brown fox</span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">h2 · 32</span>
+            <span className="t-h2">The quick brown fox</span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">h3 · 24</span>
+            <span className="t-h3">The quick brown fox</span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">body · 15</span>
+            <span className="t-body">
+              The quick brown fox jumps over the lazy dog. Body copy sits at a comfortable reading
+              size with relaxed line height for longer passages.
+            </span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">small · 13</span>
+            <span className="t-small">Secondary supporting text in a muted tone.</span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">caption</span>
+            <span className="t-caption">Overline / caption label</span>
+          </div>
+          <div className="type-row">
+            <span className="type-tag">link</span>
+            <span className="t-body">
+              Inline text with a <span className="t-link">highlighted link</span> in the accent
+              color.
+            </span>
+          </div>
+        </div>
+      </Section>
+
+      <Section num="08" title="Popover" note="click trigger · rich floating content">
         <Row>
           <Popover>
             <PopoverTrigger asChild>
@@ -430,7 +475,7 @@ export function DataDisplay() {
         </Row>
       </Section>
 
-      <Section num="08" title="Keyboard Key" note="shortcut hints">
+      <Section num="09" title="Keyboard Key" note="shortcut hints">
         <Row>
           <KbdCombo>
             <Kbd>⌘</Kbd>
@@ -454,7 +499,7 @@ export function DataDisplay() {
         </Row>
       </Section>
 
-      <Section num="09" title="Tree View" note="nested · expand / collapse">
+      <Section num="10" title="Tree View" note="nested · expand / collapse">
         <TreeView
           data={TREE_DATA}
           defaultExpanded={["src", "components"]}
@@ -462,7 +507,7 @@ export function DataDisplay() {
         />
       </Section>
 
-      <Section num="10" title="Timeline" note="chronological activity feed">
+      <Section num="11" title="Timeline" note="chronological activity feed">
         <Timeline items={TIMELINE} style={{ maxWidth: 460 }} />
       </Section>
     </>
