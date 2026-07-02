@@ -29,7 +29,7 @@ jobs:
       # --- workflow_run path: reuse the artifact CI already built ---
       - name: Download playground artifact from CI
         if: github.event_name == 'workflow_run'
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: playground-dist
           run-id: ${{ github.event.workflow_run.id }}
