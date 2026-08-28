@@ -34,7 +34,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: Create pre-release PR or publish pre-release to GitHub Packages
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           publish: pnpm release
           version: pnpm version-packages
