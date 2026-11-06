@@ -64,20 +64,20 @@ The stylesheet ships **pre-compiled** — you don't need Tailwind installed to c
 
 Everything is driven by CSS custom properties, layered low → high precedence:
 
-| Layer | Set on | What it controls |
-| --- | --- | --- |
-| **1. Base colors** | `:root` / `[data-theme="dark"]` | `--surface`, `--text`, `--accent`, semantic colors |
+| Layer              | Set on                                    | What it controls                                                 |
+| ------------------ | ----------------------------------------- | ---------------------------------------------------------------- |
+| **1. Base colors** | `:root` / `[data-theme="dark"]`           | `--surface`, `--text`, `--accent`, semantic colors               |
 | **2. Personality** | `[data-personality="pebble\|slate\|pop"]` | radius bases, border width/color, shadows, press transform, font |
-| **3. Computed** | `:root` | radii (`base × --r-scale`), density-scaled spacing (`× --dens`) |
-| **4. Motion** | `:root` | durations + easings |
-| **5. Tweaks** | inline on `<html>` | accent / radius / density / font overrides (highest precedence) |
+| **3. Computed**    | `:root`                                   | radii (`base × --r-scale`), density-scaled spacing (`× --dens`)  |
+| **4. Motion**      | `:root`                                   | durations + easings                                              |
+| **5. Tweaks**      | inline on `<html>`                        | accent / radius / density / font overrides (highest precedence)  |
 
 Switching `data-personality` re-skins the **entire** UI. Components express
 personality-conditional styling with Tailwind v4 custom variants:
 
 ```tsx
 // inside a CVA recipe — reads the active personality off the ancestor <html>
-"rounded-sm pebble:rounded-full pop:border-fg"
+"rounded-sm pebble:rounded-full pop:border-fg";
 ```
 
 > **Naming note:** the personality attribute is `data-personality` (renamed from the design's
@@ -105,14 +105,14 @@ All state persists to `localStorage` and is restored on reload.
 
 ## Components
 
-| Category | Shipped | Planned |
-| --- | --- | --- |
-| **Inputs** | Button, TextField, Checkbox, Radio, Switch, Select, Slider, FAB, ButtonGroup, ToggleButtons, Rating, NumberField, OTPInput, TagInput, Autocomplete, Combobox | — |
-| **Data display** | Badge, Avatar, Divider, List, Table, Tooltip, Popover, Kbd, TreeView, Timeline | Code Block, Icon Set |
-| **Surfaces** | Card, Accordion, AppBar, Paper, Carousel | — |
-| **Feedback** | Alert, Banner, Progress, Skeleton, Toast, EmptyState, Dialog | — |
-| **Navigation** | Link, Breadcrumbs, Pagination, Stepper, BottomNav, Tabs, Menu, Menubar, SpeedDial, Drawer | — |
-| **Advanced** | CommandPalette, DatePicker, DateRangePicker, TimePicker, ColorPicker, FileDropzone | — |
+| Category         | Shipped                                                                                                                                                      | Planned              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------- |
+| **Inputs**       | Button, TextField, Checkbox, Radio, Switch, Select, Slider, FAB, ButtonGroup, ToggleButtons, Rating, NumberField, OTPInput, TagInput, Autocomplete, Combobox | —                    |
+| **Data display** | Badge, Avatar, Divider, List, Table, Tooltip, Popover, Kbd, TreeView, Timeline                                                                               | Code Block, Icon Set |
+| **Surfaces**     | Card, Accordion, AppBar, Paper, Carousel                                                                                                                     | —                    |
+| **Feedback**     | Alert, Banner, Progress, Skeleton, Toast, EmptyState, Dialog                                                                                                 | —                    |
+| **Navigation**   | Link, Breadcrumbs, Pagination, Stepper, BottomNav, Tabs, Menu, Menubar, SpeedDial, Drawer                                                                    | —                    |
+| **Advanced**     | CommandPalette, DatePicker, DateRangePicker, TimePicker, ColorPicker, FileDropzone                                                                           | —                    |
 
 ## Develop
 
@@ -161,11 +161,11 @@ Dependabot (`.github/dependabot.yml`) opens weekly update PRs for npm deps and A
 
 Because a push to `main` can publish a package and deploy the site, protect the branch so changes land via reviewed PRs that pass CI.
 
-**UI:** Settings → Branches → **Add branch ruleset** (or *Add rule*) targeting `main`, then enable:
-- *Require a pull request before merging* (≥ 1 approval)
-- *Require status checks to pass* → select the **verify** check from CI
-- *Require branches to be up to date before merging*
-- *Block force pushes*
+**UI:** Settings → Branches → **Add branch ruleset** (or _Add rule_) targeting `main`, then enable:
+- _Require a pull request before merging_ (≥ 1 approval)
+- _Require status checks to pass_ → select the **verify** check from CI
+- _Require branches to be up to date before merging_
+- _Block force pushes_
 
 **CLI** (requires the `gh` CLI; the protection endpoint needs all top-level keys present, so pass a JSON body):
 
