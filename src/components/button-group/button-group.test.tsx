@@ -23,7 +23,7 @@ describe("ButtonGroup", () => {
         <ButtonGroupItem value="week">Week</ButtonGroupItem>
       </ButtonGroup>,
     );
-    expect(screen.getByRole("group")).toBeInTheDocument();
+    expect(screen.getByRole("radiogroup")).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: "Day" })).toBeInTheDocument();
     expect(screen.getByRole("radio", { name: "Week" })).toBeInTheDocument();
   });

@@ -16,13 +16,13 @@ describe("ToggleButtons", () => {
     expect(screen.getByText("Beta")).toBeInTheDocument();
   });
 
-  it("renders a group role", () => {
+  it("renders a radiogroup role in single mode", () => {
     render(
       <ToggleButtons type="single">
         <ToggleButtonsItem value="x">X</ToggleButtonsItem>
       </ToggleButtons>,
     );
-    expect(screen.getByRole("group")).toBeInTheDocument();
+    expect(screen.getByRole("radiogroup")).toBeInTheDocument();
   });
 
   it("applies a custom className to the root", () => {
@@ -31,7 +31,7 @@ describe("ToggleButtons", () => {
         <ToggleButtonsItem value="x">X</ToggleButtonsItem>
       </ToggleButtons>,
     );
-    expect(screen.getByRole("group")).toHaveClass("my-custom-class");
+    expect(screen.getByRole("radiogroup")).toHaveClass("my-custom-class");
   });
 
   it("selects a single item on click", async () => {
