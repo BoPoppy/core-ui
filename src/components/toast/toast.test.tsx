@@ -9,6 +9,13 @@ function Harness() {
   return <Button onClick={() => toast({ title: "Saved", description: "Done" })}>Notify</Button>;
 }
 
+// Calls useToast with no ToastProvider above it; must be module-scoped (not
+// defined inside a test) to satisfy lint/correctness/noComponentHookFactories.
+function Bad() {
+  useToast();
+  return null;
+}
+
 describe("Toast", () => {
   it("shows a toast when triggered", async () => {
     render(
@@ -23,10 +30,6 @@ describe("Toast", () => {
   });
 
   it("throws when useToast is used outside a provider", () => {
-    function Bad() {
-      useToast();
-      return null;
-    }
     expect(() => render(<Bad />)).toThrow(/ToastProvider/);
   });
 });
