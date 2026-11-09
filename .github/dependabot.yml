@@ -20,8 +20,3 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
-    ignore:
-      # changesets/action v2 requires Changesets CLI v3; the repo is on CLI v2.
-      # Remove this once @changesets/cli is upgraded to v3.
-      - dependency-name: changesets/action
-        update-types: ["version-update:semver-major"]
