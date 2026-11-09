@@ -162,6 +162,7 @@ Dependabot (`.github/dependabot.yml`) opens weekly update PRs for npm deps and A
 Because a push to `main` can publish a package and deploy the site, protect the branch so changes land via reviewed PRs that pass CI.
 
 **UI:** Settings → Branches → **Add branch ruleset** (or _Add rule_) targeting `main`, then enable:
+
 - _Require a pull request before merging_ (≥ 1 approval)
 - _Require status checks to pass_ → select the **verify** check from CI
 - _Require branches to be up to date before merging_
